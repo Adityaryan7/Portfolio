@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+
+import { ThemeProvider, createTheme, CssBaseline, Container } from '@mui/material';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import Portfolio from './pages/Portfolio/Portfolio';
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: { main: '#e50914' },
+    background: { default: '#141414', paper: '#1f1f1f' },
+  },
+});
 
 function App() {
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
+      <Container maxWidth="lg">
+       <Portfolio/>
+      </Container>
+    </ThemeProvider>
   );
 }
 

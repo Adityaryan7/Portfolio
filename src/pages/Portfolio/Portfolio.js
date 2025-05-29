@@ -102,7 +102,7 @@ class Portfolio extends Component {
   };
 
   render() {
-    const resumeURL = '/Aditya_Aryan_Resume.pdf';
+    const resumeURL = '/Aryan-Resume.pdf';
 
     const skills = [
       'React.js', 'React Native', 'Redux', 'Material UI', 'Bootstrap',
@@ -158,7 +158,7 @@ class Portfolio extends Component {
         <Container maxWidth="md">
           <motion.div initial="hidden" animate="visible" variants={scrollFadeUp}>
             <Box textAlign="center" mb={8}>
-              <Avatar src="/28399.jpg" alt="Aditya Kumar Aryan" sx={{ width: 140, height: 140, mx: 'auto', boxShadow: '0 0 20px #e50914' }} />
+              <Avatar src={process.env.PUBLIC_URL + '/28399.jpg'} alt="Aditya Kumar Aryan" sx={{ width: 140, height: 140, mx: 'auto', boxShadow: '0 0 20px #e50914' }} />
               <Typography variant="h2" fontWeight={900} mt={3} gutterBottom sx={{ color: '#e50914', letterSpacing: '1.2px' }}>
                 Aditya Kumar Aryan
               </Typography>

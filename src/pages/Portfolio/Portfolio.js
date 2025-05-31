@@ -229,26 +229,7 @@ class Portfolio extends Component {
                 Frontend Developer at Star Intellisoft Services Pvt. Ltd.
                 <br /> React.js | React Native | Redux
               </Typography>
-              <Typography variant="body1" color="rgba(255,255,255,0.75)" mt={1}>
-                Hyderabad, India •{' '}
-                <a href="mailto:adityakumararyan101@gmail.com" style={{ color: '#e50914' }}>
-                  adityakumararyan101@gmail.com
-                </a>{' '}
-                •{' '}
-                <a href="tel:+917782843264" style={{ color: '#e50914' }}>
-                  +91 77828 43264
-                </a>
-              </Typography>
-              <Typography variant="body1" mt={1}>
-                <a
-                  href="https://www.linkedin.com/in/aditya-kumar-aryan-a3654a138"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ color: '#e50914', textDecoration: 'underline' }}
-                >
-                  LinkedIn Profile ↗
-                </a>
-              </Typography>
+              
             </Box>
           </motion.div>
 

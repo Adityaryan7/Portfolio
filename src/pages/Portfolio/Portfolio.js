@@ -126,7 +126,7 @@ class Portfolio extends Component {
 
     const skills = {
       Frontend: [
-        'React.js', 'React Native', 'JavaScript', 'TypeScript',
+        'React.js', 'React Native', 'JavaScript',
         'Redux', 'HTML5', 'CSS3', 'Tailwind CSS',
         'Material UI', 'Bootstrap',
       ],

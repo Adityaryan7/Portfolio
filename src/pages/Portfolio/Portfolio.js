@@ -105,7 +105,7 @@ class Portfolio extends Component {
   };
 
   render() {
-    const resumeURL = '/Aryan-Resume.pdf';
+    const resumeURL = process.env.PUBLIC_URL + '/Aryan-Resume.pdf';
     const education = [
       {
         degree: 'B.Tech in Computer Science & Engineering',

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { ThemeProvider, createTheme, CssBaseline, Container } from '@mui/material';
+import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Portfolio from './pages/Portfolio/Portfolio';
@@ -21,9 +21,7 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <Container maxWidth="lg">
-       <Portfolio/>
-      </Container>
+      <Portfolio />
     </ThemeProvider>
   );
 }

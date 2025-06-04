@@ -242,8 +242,6 @@ class Portfolio extends Component {
     this.typewriterPhrases = [
       'Frontend Developer',
       'React.js | React Native | Redux',
-      'UI/UX Enthusiast',
-      'Performance Optimizer',
     ];
     this.typewriterInterval = null;
   }
@@ -399,8 +397,8 @@ class Portfolio extends Component {
             alignItems="center"
             gap={2}
             sx={{
-              width: { xs: '100%', sm: 'auto' },
-              justifyContent: { xs: 'center', sm: 'flex-start' },
+              width: 'auto', 
+              justifyContent: 'flex-start', 
             }}
           >
             <Avatar

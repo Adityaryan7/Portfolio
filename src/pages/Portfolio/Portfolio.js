@@ -26,8 +26,6 @@ import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/system';
 import { motion } from 'framer-motion';
 
-document.documentElement.style.scrollBehavior = 'smooth';
-
 const GradientBackground = styled(Box)(({ theme }) => ({
   minHeight: '100vh',
   width: '100vw',
@@ -38,9 +36,9 @@ const GradientBackground = styled(Box)(({ theme }) => ({
   fontSize: '16px',
   lineHeight: 1.6,
   overflowX: 'hidden',
-  paddingTop: 80, // Add space for navbar
+  paddingTop: 80,
   [theme.breakpoints.down('sm')]: {
-    paddingTop: 64, // Less space on mobile
+    paddingTop: 64,
   },
 }));
 
@@ -134,7 +132,7 @@ const HeroSection = styled(Box)(({ theme }) => ({
   },
 }));
 
-const GlassCard = styled(motion(Paper))(({ theme }) => ({
+const GlassCard = styled(Paper)(({ theme }) => ({
   background: 'rgba(28,28,28,0.82)',
   backdropFilter: 'blur(12px)',
   borderRadius: theme.spacing(4),
@@ -472,22 +470,24 @@ class Portfolio extends Component {
 
     const animatedSection = (id, title, content, isLast = false) => (
       <Box
-        component={motion.div}
         id={id}
-        variants={scrollFadeUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.15 }}
         sx={{
           mb: isLast ? 0 : { xs: 2, sm: 3 },
           px: { xs: 1, sm: 0 },
           transition: 'margin-bottom 0.2s',
         }}
       >
-        <GlassCard>
-          <SectionTitle>{title}</SectionTitle>
-          {content}
-        </GlassCard>
+        <motion.div
+          variants={scrollFadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+        >
+          <GlassCard>
+            <SectionTitle>{title}</SectionTitle>
+            {content}
+          </GlassCard>
+        </motion.div>
       </Box>
     );
 

@@ -1,4 +1,13 @@
 import React, { Component } from 'react';
+
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import CloseIcon from '@mui/icons-material/Close';
+import CodeIcon from '@mui/icons-material/Code';
+import EmailIcon from '@mui/icons-material/Email';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import MenuIcon from '@mui/icons-material/Menu';
+import PhoneIcon from '@mui/icons-material/Phone';
+import SchoolIcon from '@mui/icons-material/School';
 import {
   Box,
   Typography,
@@ -11,24 +20,15 @@ import {
   Paper,
   Divider,
   Chip,
-  Tooltip,
 } from '@mui/material';
-import { motion } from 'framer-motion';
-import { styled } from '@mui/system';
-import EmailIcon from '@mui/icons-material/Email';
-import PhoneIcon from '@mui/icons-material/Phone';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import CodeIcon from '@mui/icons-material/Code';
-import SchoolIcon from '@mui/icons-material/School';
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
+import { styled } from '@mui/system';
+import { motion } from 'framer-motion';
 
 document.documentElement.style.scrollBehavior = 'smooth';
 
-const GradientBackground = styled(Box)(({ theme }) => ({
+const GradientBackground = styled(Box)(() => ({
   minHeight: '100vh',
   width: '100vw',
   background: 'linear-gradient(135deg, #181818 0%, #232526 100%)',
@@ -230,19 +230,171 @@ const projectCardStyles = {
   },
 };
 
+const education = [
+  {
+    degree: 'B.Tech in Computer Science & Engineering',
+    institution: 'National Institute of Technology, Mizoram',
+    year: '2022',
+  },
+  {
+    degree: 'Intermediate',
+    institution: 'Sri Chaitanya Vidhya Niketan, Vishakhapatnam',
+    year: '2017',
+  },
+  {
+    degree: 'Matriculation',
+    institution: 'B.D. Public School, Patna',
+    year: '2015',
+  },
+];
+
+const skills = {
+  Frontend: [
+    'JavaScript (ES6+)',
+    'React.js',
+    'React Native',
+    'Redux',
+    'Redux Persist',
+    'HTML5',
+    'CSS3',
+    'Material UI',
+    'Bootstrap',
+    'Tailwind CSS',
+    'Axios',
+  ],
+  'Backend & API': ['REST API Integration', 'Azure API Management', 'MySQL'],
+  Authentication: [
+    'Azure AD B2C',
+    'Microsoft Azure MSAL Authentication',
+    'Firebase Authentication',
+  ],
+  'Internationalization & Localization': ['i18next (i18n)', 'react-intl'],
+  'DevOps & Cloud': [
+    'Microsoft Azure',
+    'AWS S3 Deployment',
+    'Codemagic',
+    'Bitbucket Pipelines',
+    'CI/CD Automation',
+    'SonarCloud',
+    'Microsoft Azure Static Web Apps',
+  ],
+  'Version Control & Tools': [
+    'Git',
+    'GitHub',
+    'Bitbucket',
+    'Jira',
+    'ESLint',
+    'Prettier',
+    'Webpack',
+    'Gulp',
+    'Babel',
+    'QUnit',
+    'Jest',
+  ],
+  'Mobile Development': [
+    'Android',
+    'Firebase',
+    'Native Module Integration',
+    'Cross-platform App Development',
+  ],
+  'Other Libraries & Tools': ['Eleventy (11ty)', 'Hugo'],
+};
+
+const projects = [
+  {
+    title: 'Web & Mobile App Development',
+    description:
+      'Built scalable, responsive apps using React.js and React Native with Material UI and Bootstrap.',
+    stack: ['React.js', 'React Native', 'Material UI', 'Bootstrap'],
+  },
+  {
+    title: 'State Management',
+    description:
+      'Implemented robust global state with Redux and Redux Persist for maintainable data flow.',
+    stack: ['Redux', 'Redux Persist'],
+  },
+  {
+    title: 'CI/CD Automation',
+    description:
+      'Automated build, test, and deployment with Azure, Codemagic, and Bitbucket Pipelines.',
+    stack: ['Microsoft Azure', 'Codemagic', 'Bitbucket Pipelines'],
+  },
+  {
+    title: 'Authentication & User Management',
+    description:
+      'Secured apps with Azure AD B2C and MSAL, supporting multi-environment provisioning.',
+    stack: ['Azure AD B2C', 'MSAL', 'Microsoft Azure'],
+  },
+  {
+    title: 'Performance Optimization',
+    description:
+      'Enhanced performance using Chrome DevTools, Lighthouse, lazy loading, and code splitting.',
+    stack: ['Chrome DevTools', 'Lighthouse'],
+  },
+  {
+    title: 'Native Module Integration',
+    description:
+      'Integrated Android/iOS modules and Firebase for analytics and crash reporting in React Native.',
+    stack: ['React Native', 'Android', 'Firebase Crashlytics', 'Firebase Analytics'],
+  },
+  {
+    title: 'Data Visualization Dashboards',
+    description:
+      'Developed real-time dashboards with charting libraries and REST APIs for actionable insights.',
+    stack: ['React.js', 'Redux', 'Material UI'],
+  },
+  {
+    title: 'Dynamic Form Builder',
+    description: 'Created reusable, validated form components for high-quality data input.',
+    stack: ['React.js', 'JavaScript', 'HTML5', 'CSS3'],
+  },
+  {
+    title: 'Internationalization',
+    description: 'Enabled multi-language support using i18next for global-ready applications.',
+    stack: ['i18next'],
+  },
+  {
+    title: 'Advanced Web Features',
+    description:
+      'Built advanced catalog filtering, async image processing, and robust error handling.',
+    stack: ['React.js', 'Redux', 'Material UI', 'Axios', 'notistack', 'REST API', 'Git'],
+  },
+  {
+    title: 'Lead Generation Platform',
+    description:
+      'Architected a secure, multilingual lead gen system with automated CI/CD and AWS S3 deployment.',
+    stack: [
+      'React.js',
+      'Redux',
+      'Azure MSAL',
+      'Material UI',
+      'i18next',
+      'AWS S3',
+      'Bitbucket Pipelines',
+    ],
+  },
+  {
+    title: 'Digital Showroom Platform',
+    description:
+      'Developed a robust, localized digital showroom with notifications and session persistence.',
+    stack: ['React.js', 'Redux', 'Material UI', 'notistack', 'i18next', 'Git', 'Bitbucket'],
+  },
+  {
+    title: 'Static Website Development',
+    description: 'Implemented static marketing sites using Eleventy (11ty) and Hugo ',
+    stack: ['Eleventy (11ty)', 'Hugo'],
+  },
+];
+
 class Portfolio extends Component {
   constructor(props) {
     super(props);
     this.state = {
       showScroll: false,
-      typewriterIndex: 0,
       typewriterText: '',
       mobileNavOpen: false,
     };
-    this.typewriterPhrases = [
-      'Frontend Developer',
-      'React.js | React Native | Redux',
-    ];
+    this.typewriterPhrases = ['Frontend Developer', 'React.js | React Native | Redux'];
     this.typewriterInterval = null;
   }
 
@@ -274,26 +426,28 @@ class Portfolio extends Component {
     let phraseIdx = 0;
     let charIdx = 0;
     let forward = true;
-    this.typewriterInterval = setInterval(() => {
+    const type = () => {
       const phrase = this.typewriterPhrases[phraseIdx];
       if (forward) {
         if (charIdx < phrase.length) {
           this.setState({ typewriterText: phrase.slice(0, charIdx + 1) });
-          charIdx++;
+          charIdx += 1;
+          this.typewriterInterval = setTimeout(type, 80);
         } else {
           forward = false;
-          setTimeout(() => {}, 900);
+          this.typewriterInterval = setTimeout(type, 900);
         }
+      } else if (charIdx > 0) {
+        this.setState({ typewriterText: phrase.slice(0, charIdx - 1) });
+        charIdx -= 1;
+        this.typewriterInterval = setTimeout(type, 40);
       } else {
-        if (charIdx > 0) {
-          this.setState({ typewriterText: phrase.slice(0, charIdx - 1) });
-          charIdx--;
-        } else {
-          forward = true;
-          phraseIdx = (phraseIdx + 1) % this.typewriterPhrases.length;
-        }
+        forward = true;
+        phraseIdx = (phraseIdx + 1) % this.typewriterPhrases.length;
+        this.typewriterInterval = setTimeout(type, 400);
       }
-    }, 80);
+    };
+    type();
   };
 
   handleMobileNavOpen = () => {
@@ -310,70 +464,7 @@ class Portfolio extends Component {
   };
 
   render() {
-    const resumeURL = process.env.PUBLIC_URL + '/Aryan-Resume.pdf';
-    const education = [
-      {
-        degree: 'B.Tech in Computer Science & Engineering',
-        institution: 'National Institute of Technology, Mizoram',
-        year: '2022',
-      },
-      {
-        degree: 'Intermediate',
-        institution: 'Sri Chaitanya Vidhya Niketan, Vishakhapatnam',
-        year: '2017',
-      },
-      {
-        degree: 'Matriculation',
-        institution: 'B.D. Public School, Patna',
-        year: '2015',
-      },
-    ];
-
-    const skills = {
-      Frontend: [
-        'React.js', 'React Native', 'JavaScript',
-        'Redux', 'HTML5', 'CSS3', 'Tailwind CSS',
-        'Material UI', 'Bootstrap',
-      ],
-      'Backend & Database': ['Node.js', 'REST API', 'MySQL'],
-      'DevOps & Cloud': ['Microsoft Azure', 'Firebase', 'GitHub Actions', 'CI/CD'],
-      Testing: ['Jest', 'React Testing Library'],
-      'Version Control & Tools': ['Git', 'GitHub', 'Bitbucket', 'Jira'],
-      'Static Site Generators': ['Hugo', '11ty'],
-    };
-
-    const projects = [
-      {
-        title: 'Web & Mobile Application Development',
-        description:
-          'Built responsive and cross-platform applications using React.js and React Native. Demonstrated strong knowledge of JavaScript, component-based architecture, and efficient UI composition.',
-        stack: ['React.js', 'React Native', 'JavaScript'],
-      },
-      {
-        title: 'Scalable State Management',
-        description:
-          'Implemented Redux and Context API for managing global application state in large-scale React projects. Ensured clean, maintainable, and predictable data flow across components.',
-        stack: ['Redux', 'Context API'],
-      },
-      {
-        title: 'CI/CD and Deployment',
-        description:
-          'Automated build and deployment workflows using GitHub Actions, Firebase, and Expo. Improved deployment efficiency and release consistency in development cycles.',
-        stack: ['GitHub Actions', 'Firebase', 'Expo'],
-      },
-      {
-        title: 'Performance Optimization',
-        description:
-          'Utilized Chrome DevTools and Lighthouse to diagnose and optimize rendering bottlenecks. Applied lazy loading and modular JavaScript to enhance load performance.',
-        stack: ['Lighthouse', 'DevTools'],
-      },
-      {
-        title: 'Testing and QA',
-        description:
-          'Established robust testing using Jest and React Testing Library. Focused on component-level unit and integration tests to ensure application reliability and maintainability.',
-        stack: ['Jest', 'React Testing Library'],
-      },
-    ];
+    const resumeURL = `${process.env.PUBLIC_URL}/Aryan-Resume.pdf`;
 
     const animatedSection = (id, title, content) => (
       <Box id={id} sx={{ mb: { xs: 6, sm: 10 } }}>
@@ -397,12 +488,12 @@ class Portfolio extends Component {
             alignItems="center"
             gap={2}
             sx={{
-              width: 'auto', 
-              justifyContent: 'flex-start', 
+              width: 'auto',
+              justifyContent: 'flex-start',
             }}
           >
             <Avatar
-              src={process.env.PUBLIC_URL + '/28399.jpg'}
+              src={`${process.env.PUBLIC_URL}/28399.jpg`}
               alt="Aditya Kumar Aryan"
               sx={{
                 width: 44,
@@ -425,11 +516,21 @@ class Portfolio extends Component {
             </Typography>
           </Box>
           <NavLinksBox>
-            <NavLink href="#about" onClick={() => this.scrollToSection('about')}>About</NavLink>
-            <NavLink href="#skills" onClick={() => this.scrollToSection('skills')}>Skills</NavLink>
-            <NavLink href="#projects" onClick={() => this.scrollToSection('projects')}>Projects</NavLink>
-            <NavLink href="#education" onClick={() => this.scrollToSection('education')}>Education</NavLink>
-            <NavLink href="#contact" onClick={() => this.scrollToSection('contact')}>Contact</NavLink>
+            <NavLink href="#about" onClick={() => this.scrollToSection('about')}>
+              About
+            </NavLink>
+            <NavLink href="#skills" onClick={() => this.scrollToSection('skills')}>
+              Skills
+            </NavLink>
+            <NavLink href="#projects" onClick={() => this.scrollToSection('projects')}>
+              Projects
+            </NavLink>
+            <NavLink href="#education" onClick={() => this.scrollToSection('education')}>
+              Education
+            </NavLink>
+            <NavLink href="#contact" onClick={() => this.scrollToSection('contact')}>
+              Contact
+            </NavLink>
           </NavLinksBox>
           <MobileMenuButton
             edge="end"
@@ -465,24 +566,30 @@ class Portfolio extends Component {
                   <CloseIcon />
                 </IconButton>
               </Box>
-              <NavLink href="#about" onClick={() => this.handleMobileNavClick('about')}>About</NavLink>
-              <NavLink href="#skills" onClick={() => this.handleMobileNavClick('skills')}>Skills</NavLink>
-              <NavLink href="#projects" onClick={() => this.handleMobileNavClick('projects')}>Projects</NavLink>
-              <NavLink href="#education" onClick={() => this.handleMobileNavClick('education')}>Education</NavLink>
-              <NavLink href="#contact" onClick={() => this.handleMobileNavClick('contact')}>Contact</NavLink>
+              <NavLink href="#about" onClick={() => this.handleMobileNavClick('about')}>
+                About
+              </NavLink>
+              <NavLink href="#skills" onClick={() => this.handleMobileNavClick('skills')}>
+                Skills
+              </NavLink>
+              <NavLink href="#projects" onClick={() => this.handleMobileNavClick('projects')}>
+                Projects
+              </NavLink>
+              <NavLink href="#education" onClick={() => this.handleMobileNavClick('education')}>
+                Education
+              </NavLink>
+              <NavLink href="#contact" onClick={() => this.handleMobileNavClick('contact')}>
+                Contact
+              </NavLink>
             </MobileDrawerNav>
           </Drawer>
         </GlassNav>
 
         {/* Hero Section */}
         <HeroSection>
-          <motion.div
-            variants={scrollFadeUp}
-            initial="hidden"
-            animate="visible"
-          >
+          <motion.div variants={scrollFadeUp} initial="hidden" animate="visible">
             <Avatar
-              src={process.env.PUBLIC_URL + '/28399.jpg'}
+              src={`${process.env.PUBLIC_URL}/28399.jpg`}
               alt="Aditya Kumar Aryan"
               sx={{
                 width: { xs: 110, sm: 150, md: 180 },
@@ -532,7 +639,8 @@ class Portfolio extends Component {
                 mb: 2,
               }}
             >
-              Frontend Developer at Star Intellisoft Services Pvt. Ltd.<br />
+              Frontend Developer at Star Intellisoft Services Pvt. Ltd.
+              <br />
               Passionate about building beautiful, performant, and accessible web & mobile apps.
             </Typography>
             <a
@@ -553,8 +661,15 @@ class Portfolio extends Component {
                 display: 'inline-block',
                 marginTop: 16,
               }}
-              onMouseEnter={e => { e.currentTarget.style.background = '#b20710'; e.currentTarget.style.transform = 'scale(1.04)'; }}
-              onMouseLeave={e => { e.currentTarget.style.background = 'linear-gradient(90deg,#e50914 60%,#b20710 100%)'; e.currentTarget.style.transform = 'scale(1)'; }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#b20710';
+                e.currentTarget.style.transform = 'scale(1.04)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background =
+                  'linear-gradient(90deg,#e50914 60%,#b20710 100%)';
+                e.currentTarget.style.transform = 'scale(1)';
+              }}
             >
               Download Resume
             </a>
@@ -565,10 +680,12 @@ class Portfolio extends Component {
           {animatedSection(
             'about',
             'About Me',
-            <Typography variant="body1" fontSize={'1.18rem'}>
-              Creative and detail-oriented Frontend Developer with 2+ years of experience building modern web and mobile
-              interfaces. I specialize in React.js, React Native, and crafting highly interactive, accessible UIs with
-              performance and scalability in mind.
+            <Typography variant="body1" fontSize="1.18rem">
+              Results-driven Frontend Developer with over 2 years of experience designing and
+              developing modern web and mobile applications. Skilled in React.js and React Native, I
+              excel at creating interactive, accessible, and high-performance user interfaces. Adept
+              at collaborating with cross-functional teams to deliver scalable solutions that
+              enhance user experience and meet business objectives.
             </Typography>
           )}
 
@@ -581,8 +698,15 @@ class Portfolio extends Component {
                   <Typography variant="h6" sx={{ color: '#e50914', mb: 1 }}>
                     {category}
                   </Typography>
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, overflowX: { xs: 'auto', sm: 'visible' } }}>
-                    {items.map(skill => (
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexWrap: 'wrap',
+                      gap: 1,
+                      overflowX: { xs: 'auto', sm: 'visible' },
+                    }}
+                  >
+                    {items.map((skill) => (
                       <Chip
                         key={skill}
                         label={skill}
@@ -623,9 +747,11 @@ class Portfolio extends Component {
                         </Typography>
                       </Box>
                       <Divider sx={{ my: 1, borderColor: 'rgba(255,255,255,0.1)' }} />
-                      <Typography variant="body2" sx={{ color: '#eee', mb: 1 }}>{project.description}</Typography>
+                      <Typography variant="body2" sx={{ color: '#eee', mb: 1 }}>
+                        {project.description}
+                      </Typography>
                       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                        {project.stack.map(tech => (
+                        {project.stack.map((tech) => (
                           <Chip
                             key={tech}
                             label={tech}
@@ -676,22 +802,52 @@ class Portfolio extends Component {
               </Typography>
               <Box display="flex" alignItems="center" gap={1}>
                 <EmailIcon sx={{ color: '#e50914' }} />
-                <a href="mailto:adityakumararyan101@gmail.com" style={{
-                  color: '#fff', textDecoration: 'none', fontWeight: 500, transition: 'color 0.2s'
-                }}
-                  onMouseOver={e => e.currentTarget.style.color = '#e50914'}
-                  onMouseOut={e => e.currentTarget.style.color = '#fff'}
+                <a
+                  href="mailto:adityakumararyan101@gmail.com"
+                  style={{
+                    color: '#fff',
+                    textDecoration: 'none',
+                    fontWeight: 500,
+                    transition: 'color 0.2s',
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.color = '#e50914';
+                  }}
+                  onFocus={(e) => {
+                    e.currentTarget.style.color = '#e50914';
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.color = '#fff';
+                  }}
+                  onBlur={(e) => {
+                    e.currentTarget.style.color = '#fff';
+                  }}
                 >
                   adityakumararyan101@gmail.com
                 </a>
               </Box>
               <Box display="flex" alignItems="center" gap={1}>
                 <PhoneIcon sx={{ color: '#e50914' }} />
-                <a href="tel:+917782843264" style={{
-                  color: '#fff', textDecoration: 'none', fontWeight: 500, transition: 'color 0.2s'
-                }}
-                  onMouseOver={e => e.currentTarget.style.color = '#e50914'}
-                  onMouseOut={e => e.currentTarget.style.color = '#fff'}
+                <a
+                  href="tel:+917782843264"
+                  style={{
+                    color: '#fff',
+                    textDecoration: 'none',
+                    fontWeight: 500,
+                    transition: 'color 0.2s',
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.color = '#e50914';
+                  }}
+                  onFocus={(e) => {
+                    e.currentTarget.style.color = '#e50914';
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.color = '#fff';
+                  }}
+                  onBlur={(e) => {
+                    e.currentTarget.style.color = '#fff';
+                  }}
                 >
                   +91 77828 43264
                 </a>
@@ -703,10 +859,23 @@ class Portfolio extends Component {
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
-                    color: '#fff', textDecoration: 'none', fontWeight: 500, transition: 'color 0.2s'
+                    color: '#fff',
+                    textDecoration: 'none',
+                    fontWeight: 500,
+                    transition: 'color 0.2s',
                   }}
-                  onMouseOver={e => e.currentTarget.style.color = '#e50914'}
-                  onMouseOut={e => e.currentTarget.style.color = '#fff'}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.color = '#e50914';
+                  }}
+                  onFocus={(e) => {
+                    e.currentTarget.style.color = '#e50914';
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.color = '#fff';
+                  }}
+                  onBlur={(e) => {
+                    e.currentTarget.style.color = '#fff';
+                  }}
                 >
                   LinkedIn Profile
                 </a>
@@ -715,9 +884,7 @@ class Portfolio extends Component {
           )}
         </Container>
 
-        {this.state.showScroll && (
-          <ScrollTopButton onClick={this.scrollToTop} />
-        )}
+        {this.state.showScroll && <ScrollTopButton onClick={this.scrollToTop} />}
 
         <Footer>
           &copy; {new Date().getFullYear()} Aditya Kumar Aryan &mdash; Crafted with React & MUI

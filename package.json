@@ -9,6 +9,7 @@
     "@mui/icons-material": "^5.8.0",
     "@mui/lab": "^5.0.0-alpha.64",
     "@mui/material": "^5.8.0",
+    "@mui/system": "^5.17.1",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
@@ -60,10 +61,19 @@
     ]
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.27.1",
-    "eslint-config-prettier": "^10.1.5",
-    "eslint-plugin-import": "^2.25.0",
-    "eslint-plugin-prettier": "^5.4.0",
-    "eslint-plugin-react-hooks": "^4.2.0"
+    "@babel/core": "^7.16.0",
+    "@babel/eslint-parser": "^7.26.8",
+    "@babel/plugin-proposal-private-property-in-object": "7.21.11",
+    "@babel/preset-env": "^7.16.0",
+    "@babel/preset-react": "^7.16.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.37.2",
+    "prettier": "^3.4.1",
+    "react-error-overlay": "^6.0.11",
+    "react-scripts": "^5.0.1"
   }
 }

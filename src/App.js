@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 
 import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 import AOS from 'aos';
+
 import 'aos/dist/aos.css';
 import Portfolio from './pages/Portfolio/Portfolio';
 
@@ -13,7 +14,7 @@ const darkTheme = createTheme({
   },
 });
 
-function App() {
+const App = () => {
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
@@ -24,6 +25,6 @@ function App() {
       <Portfolio />
     </ThemeProvider>
   );
-}
+};
 
 export default App;

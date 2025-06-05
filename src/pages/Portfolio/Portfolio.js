@@ -28,7 +28,7 @@ import { motion } from 'framer-motion';
 
 document.documentElement.style.scrollBehavior = 'smooth';
 
-const GradientBackground = styled(Box)(() => ({
+const GradientBackground = styled(Box)(({ theme }) => ({
   minHeight: '100vh',
   width: '100vw',
   background: 'linear-gradient(135deg, #181818 0%, #232526 100%)',
@@ -38,6 +38,10 @@ const GradientBackground = styled(Box)(() => ({
   fontSize: '16px',
   lineHeight: 1.6,
   overflowX: 'hidden',
+  paddingTop: 80, // Add space for navbar
+  [theme.breakpoints.down('sm')]: {
+    paddingTop: 64, // Less space on mobile
+  },
 }));
 
 const GlassNav = styled(Box)(({ theme }) => ({
@@ -120,11 +124,11 @@ const HeroSection = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   minHeight: '60vh',
-  paddingTop: theme.spacing(14),
+  paddingTop: theme.spacing(8),
   paddingBottom: theme.spacing(8),
   textAlign: 'center',
   [theme.breakpoints.down('sm')]: {
-    paddingTop: theme.spacing(11),
+    paddingTop: theme.spacing(6),
     paddingBottom: theme.spacing(4),
     minHeight: '40vh',
   },
@@ -466,14 +470,21 @@ class Portfolio extends Component {
   render() {
     const resumeURL = `${process.env.PUBLIC_URL}/Aryan-Resume.pdf`;
 
-    const animatedSection = (id, title, content) => (
-      <Box id={id} sx={{ mb: { xs: 6, sm: 10 } }}>
-        <GlassCard
-          variants={scrollFadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
+    const animatedSection = (id, title, content, isLast = false) => (
+      <Box
+        component={motion.div}
+        id={id}
+        variants={scrollFadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
+        sx={{
+          mb: isLast ? 0 : { xs: 2, sm: 3 },
+          px: { xs: 1, sm: 0 },
+          transition: 'margin-bottom 0.2s',
+        }}
+      >
+        <GlassCard>
           <SectionTitle>{title}</SectionTitle>
           {content}
         </GlassCard>
@@ -587,7 +598,13 @@ class Portfolio extends Component {
 
         {/* Hero Section */}
         <HeroSection>
-          <motion.div variants={scrollFadeUp} initial="hidden" animate="visible">
+          <Box
+            component={motion.div}
+            variants={scrollFadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.15 }}
+          >
             <Avatar
               src={`${process.env.PUBLIC_URL}/28399.jpg`}
               alt="Aditya Kumar Aryan"
@@ -673,10 +690,17 @@ class Portfolio extends Component {
             >
               Download Resume
             </a>
-          </motion.div>
+          </Box>
         </HeroSection>
 
-        <Container maxWidth="md" sx={{ pt: 2 }}>
+        <Container
+          maxWidth="md"
+          sx={{
+            pt: 2,
+            pb: 6,
+            px: { xs: 0.5, sm: 2 },
+          }}
+        >
           {animatedSection(
             'about',
             'About Me',

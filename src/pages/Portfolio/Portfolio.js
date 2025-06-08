@@ -822,7 +822,9 @@ class Portfolio extends Component {
             'Contact',
             <Stack spacing={2}>
               <Typography variant="body1">
-                Feel free to reach out for collaboration or job opportunities!
+                I am actively seeking new opportunities to contribute my skills and grow as a
+                Software Developer. If you have a suitable role or would like to discuss potential
+                collaborations, please feel free to get in touch.
               </Typography>
               <Box display="flex" alignItems="center" gap={1}>
                 <EmailIcon sx={{ color: '#e50914' }} />

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React, { Component } from 'react';
 
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
@@ -204,14 +205,14 @@ const Footer = styled(Box)(({ theme }) => ({
 }));
 
 const scrollFadeUp = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.6,
+      duration: 0.18, // faster
       ease: 'easeOut',
-      staggerChildren: 0.2,
+      staggerChildren: 0.05,
     },
   },
 };
@@ -234,9 +235,9 @@ const projectCardStyles = {
 
 const education = [
   {
-    degree: 'B.Tech in Computer Science & Engineering',
-    institution: 'National Institute of Technology, Mizoram',
-    year: '2022',
+    degree: 'Bachelor of Technology – Computer Science and Engineering',
+    institution: 'National Institute of Technology (NIT), Mizoram',
+    year: 'Aug 2018 – May 2022',
   },
   {
     degree: 'Intermediate',
@@ -250,141 +251,88 @@ const education = [
   },
 ];
 
+const experience = [
+  {
+    company: 'Star Intellisoft Services Private Limited',
+    location: '',
+    title: 'Software Engineer',
+    period: 'March 2023 – Current',
+    details: [
+      <span>
+        <b>
+          Web and Mobile App Development | Al Habtoor Motors, Oman Trading Establishment and Towell
+          Auto Center
+        </b>
+      </span>,
+      'Developed responsive web apps with React.js and JavaScript, and cross-platform mobile apps with React Native for Android.',
+      'Designed UIs using HTML, CSS, Flexbox, and Grid, ensuring accessibility and modern design standards.',
+      'Integrated REST APIs with Axios and managed state with Redux for efficient data flow.',
+      'Optimized performance through lazy loading, code splitting, and tools like Chrome DevTools.',
+      'Implemented CI/CD with GitHub Actions, deploying apps via Azure and Codemagic.',
+      'Ensured quality with unit/integration tests using Jest and React Testing Library.',
+      'Collaborated in agile teams using Jira, delivering features on time.',
+      <span>
+        <b>Tech Stack:</b> React Native, React.js, JavaScript, HTML, CSS
+      </span>,
+    ],
+    tech: ['React Native', 'React.js', 'JavaScript', 'HTML', 'CSS'],
+  },
+  {
+    company: 'Tool Room and Training Center, Guwahati',
+    location: '',
+    title: 'Software Development - Intern',
+    period: 'Dec 2020 – Apr 2021',
+    details: [
+      <span>
+        <b>Java Developer Trainee:</b> Improved my skills as a Java Developer by working on
+        different Java APIs in projects. This job gave me useful experience and helped me better
+        understand how to develop Java applications and solve problems.
+        <br />
+        <b>Tech Stack:</b> Core Java, SQL
+      </span>,
+      <span>
+        <b>Graphics and Web Designer Trainee:</b> Improved my proficiency in HTML and CSS,
+        contributing to web design projects. This role enhanced my ability to design user-friendly
+        websites and implement visually appealing, responsive layouts.
+        <br />
+        <b>Tech Stack:</b> HTML, CSS, JavaScript
+      </span>,
+    ],
+    tech: ['Core Java', 'SQL', 'HTML', 'CSS', 'JavaScript'],
+  },
+];
+
 const skills = {
-  Frontend: [
-    'JavaScript (ES6+)',
-    'React.js',
-    'React Native',
-    'Redux',
-    'Redux Persist',
-    'HTML5',
-    'CSS3',
-    'Material UI',
-    'Bootstrap',
-    'Tailwind CSS',
-    'Axios',
-  ],
-  'Backend & API': ['REST API Integration', 'Azure API Management', 'MySQL'],
-  Authentication: [
-    'Azure AD B2C',
-    'Microsoft Azure MSAL Authentication',
-    'Firebase Authentication',
-  ],
-  'Internationalization & Localization': ['i18next (i18n)', 'react-intl'],
-  'DevOps & Cloud': [
-    'Microsoft Azure',
-    'AWS S3 Deployment',
-    'Codemagic',
-    'Bitbucket Pipelines',
-    'CI/CD Automation',
-    'SonarCloud',
-    'Microsoft Azure Static Web Apps',
-  ],
-  'Version Control & Tools': [
+  'Programming Languages': ['JavaScript', 'Python', 'SQL', 'Core Java', 'HTML5', 'CSS3'],
+  Development: ['ReactJS', 'React Native', 'Redux', 'Material UI', 'Bootstrap'],
+  'Developer Tools': [
+    'VS Code',
+    'Postman',
+    'MySQL Workbench',
+    'PostgreSQL Workbench',
     'Git',
-    'GitHub',
     'Bitbucket',
-    'Jira',
-    'ESLint',
-    'Prettier',
-    'Webpack',
-    'Gulp',
-    'Babel',
-    'QUnit',
-    'Jest',
+    'GitHub',
+    'Codemagic',
+    'Postman',
   ],
-  'Mobile Development': [
-    'Android',
-    'Firebase',
-    'Native Module Integration',
-    'Cross-platform App Development',
-  ],
-  'Other Libraries & Tools': ['Eleventy (11ty)', 'Hugo'],
+  'Cloud & Deployment': ['Microsoft Azure'],
 };
 
 const projects = [
   {
-    title: 'Web & Mobile App Development',
+    title: 'Personal Portfolio',
+    year: '2025',
     description:
-      'Built scalable, responsive apps using React.js and React Native with Material UI and Bootstrap.',
-    stack: ['React.js', 'React Native', 'Material UI', 'Bootstrap'],
+      'Developed a responsive portfolio website using React.js and Material UI, incorporating smooth animations, a modern design, and mobile-friendly navigation. The project highlights my ability to create visually appealing and user-friendly interfaces, with a focus on performance and interactivity. The site offers a seamless experience across devices, ensuring a smooth browsing experience for users.',
+    stack: ['React.js', 'Material UI', 'JavaScript', 'CSS3'],
   },
   {
-    title: 'State Management',
+    title: 'COVID-19 Query Classification Chatbot',
+    year: 'Jan 2022 – Jun 2022',
     description:
-      'Implemented robust global state with Redux and Redux Persist for maintainable data flow.',
-    stack: ['Redux', 'Redux Persist'],
-  },
-  {
-    title: 'CI/CD Automation',
-    description:
-      'Automated build, test, and deployment with Azure, Codemagic, and Bitbucket Pipelines.',
-    stack: ['Microsoft Azure', 'Codemagic', 'Bitbucket Pipelines'],
-  },
-  {
-    title: 'Authentication & User Management',
-    description:
-      'Secured apps with Azure AD B2C and MSAL, supporting multi-environment provisioning.',
-    stack: ['Azure AD B2C', 'MSAL', 'Microsoft Azure'],
-  },
-  {
-    title: 'Performance Optimization',
-    description:
-      'Enhanced performance using Chrome DevTools, Lighthouse, lazy loading, and code splitting.',
-    stack: ['Chrome DevTools', 'Lighthouse'],
-  },
-  {
-    title: 'Native Module Integration',
-    description:
-      'Integrated Android/iOS modules and Firebase for analytics and crash reporting in React Native.',
-    stack: ['React Native', 'Android', 'Firebase Crashlytics', 'Firebase Analytics'],
-  },
-  {
-    title: 'Data Visualization Dashboards',
-    description:
-      'Developed real-time dashboards with charting libraries and REST APIs for actionable insights.',
-    stack: ['React.js', 'Redux', 'Material UI'],
-  },
-  {
-    title: 'Dynamic Form Builder',
-    description: 'Created reusable, validated form components for high-quality data input.',
-    stack: ['React.js', 'JavaScript', 'HTML5', 'CSS3'],
-  },
-  {
-    title: 'Internationalization',
-    description: 'Enabled multi-language support using i18next for global-ready applications.',
-    stack: ['i18next'],
-  },
-  {
-    title: 'Advanced Web Features',
-    description:
-      'Built advanced catalog filtering, async image processing, and robust error handling.',
-    stack: ['React.js', 'Redux', 'Material UI', 'Axios', 'notistack', 'REST API', 'Git'],
-  },
-  {
-    title: 'Lead Generation Platform',
-    description:
-      'Architected a secure, multilingual lead gen system with automated CI/CD and AWS S3 deployment.',
-    stack: [
-      'React.js',
-      'Redux',
-      'Azure MSAL',
-      'Material UI',
-      'i18next',
-      'AWS S3',
-      'Bitbucket Pipelines',
-    ],
-  },
-  {
-    title: 'Digital Showroom Platform',
-    description:
-      'Developed a robust, localized digital showroom with notifications and session persistence.',
-    stack: ['React.js', 'Redux', 'Material UI', 'notistack', 'i18next', 'Git', 'Bitbucket'],
-  },
-  {
-    title: 'Static Website Development',
-    description: 'Implemented static marketing sites using Eleventy (11ty) and Hugo ',
-    stack: ['Eleventy (11ty)', 'Hugo'],
+      "I developed an NLP-based chatbot to provide accurate COVID-19 information and promote health behaviors. It classifies question-answer pairs from a dataset scraped from reputable sources, using Python for efficient implementation. The system's performance was evaluated with the F1-score to ensure effective user interaction and information delivery.",
+    stack: ['Python', 'NLP', 'Machine Learning'],
   },
 ];
 
@@ -396,7 +344,8 @@ class Portfolio extends Component {
       typewriterText: '',
       mobileNavOpen: false,
     };
-    this.typewriterPhrases = ['Frontend Developer', 'React.js | React Native | Redux'];
+    // Update your typewriter phrases for accuracy
+    this.typewriterPhrases = ['Software Engineer', 'React.js | React Native | Redux'];
     this.typewriterInterval = null;
   }
 
@@ -417,7 +366,7 @@ class Portfolio extends Component {
 
   scrollToSection = (id) => {
     const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (el) el.scrollIntoView({ behavior: 'auto' });
   };
 
   scrollToTop = () => {
@@ -466,7 +415,7 @@ class Portfolio extends Component {
   };
 
   render() {
-    const resumeURL = `${process.env.PUBLIC_URL}/Aryan-Resume.pdf`;
+    const resumeURL = `${process.env.PUBLIC_URL}/Aadi_Resume.pdf`;
 
     const animatedSection = (id, title, content, isLast = false) => (
       <Box
@@ -506,6 +455,7 @@ class Portfolio extends Component {
             <Avatar
               src={`${process.env.PUBLIC_URL}/28399.jpg`}
               alt="Aditya Kumar Aryan"
+              loading="lazy"
               sx={{
                 width: 44,
                 height: 44,
@@ -527,19 +477,46 @@ class Portfolio extends Component {
             </Typography>
           </Box>
           <NavLinksBox>
-            <NavLink href="#about" onClick={() => this.scrollToSection('about')}>
+            <NavLink
+              href="#about"
+              aria-label="About section"
+              onClick={() => this.scrollToSection('about')}
+            >
               About
             </NavLink>
-            <NavLink href="#skills" onClick={() => this.scrollToSection('skills')}>
+            <NavLink
+              href="#experience"
+              aria-label="Experience section"
+              onClick={() => this.scrollToSection('experience')}
+            >
+              Experience
+            </NavLink>
+            <NavLink
+              href="#skills"
+              aria-label="Skills section"
+              onClick={() => this.scrollToSection('skills')}
+            >
               Skills
             </NavLink>
-            <NavLink href="#projects" onClick={() => this.scrollToSection('projects')}>
+            <NavLink
+              href="#projects"
+              aria-label="Projects section"
+              onClick={() => this.scrollToSection('projects')}
+            >
               Projects
             </NavLink>
-            <NavLink href="#education" onClick={() => this.scrollToSection('education')}>
+            <NavLink
+              href="#education"
+              aria-label="Education section"
+              onClick={() => this.scrollToSection('education')}
+            >
               Education
             </NavLink>
-            <NavLink href="#contact" onClick={() => this.scrollToSection('contact')}>
+            <NavLink
+              href="#contact"
+              aria-label="Contact section"
+              onClick={() => this.scrollToSection('contact')}
+            >
               Contact
             </NavLink>
           </NavLinksBox>
@@ -579,6 +556,9 @@ class Portfolio extends Component {
               </Box>
               <NavLink href="#about" onClick={() => this.handleMobileNavClick('about')}>
                 About
+              </NavLink>
+              <NavLink href="#experience" onClick={() => this.handleMobileNavClick('experience')}>
+                Experience
               </NavLink>
               <NavLink href="#skills" onClick={() => this.handleMobileNavClick('skills')}>
                 Skills
@@ -662,7 +642,7 @@ class Portfolio extends Component {
             </Typography>
             <a
               href={resumeURL}
-              download="Aryan-Resume.pdf"
+              download="Aadi_Resume.pdf"
               style={{
                 background: 'linear-gradient(90deg,#e50914 60%,#b20710 100%)',
                 padding: '14px 32px',
@@ -705,12 +685,51 @@ class Portfolio extends Component {
             'about',
             'About Me',
             <Typography variant="body1" fontSize="1.18rem">
-              Results-driven Frontend Developer with over 2 years of experience designing and
-              developing modern web and mobile applications. Skilled in React.js and React Native, I
-              excel at creating interactive, accessible, and high-performance user interfaces. Adept
-              at collaborating with cross-functional teams to deliver scalable solutions that
-              enhance user experience and meet business objectives.
+              Software Engineer with 2+ years of experience in React.js, React Native, JavaScript,
+              HTML5, CSS3, and Redux. Skilled in building responsive, scalable web and mobile apps,
+              integrating APIs, and optimizing UI performance. Hands-on with Azure, CI/CD pipelines,
+              and testing, passionate about creating modern, user-friendly interfaces.
             </Typography>
+          )}
+
+          {animatedSection(
+            'experience',
+            'Experience',
+            <Stack spacing={3}>
+              {experience.map((exp) => (
+                <Box key={exp.company}>
+                  <Typography variant="h6" sx={{ color: '#e50914', mb: 0.5 }}>
+                    {exp.title} @ {exp.company}
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: '#aaa', mb: 0.5 }}>
+                    {exp.period} &mdash; {exp.location}
+                  </Typography>
+                  <ul style={{ margin: 0, paddingLeft: 18 }}>
+                    {exp.details.map((d, i) => (
+                      <li key={i} style={{ marginBottom: 4, fontSize: '1rem', color: '#eee' }}>
+                        {d}
+                      </li>
+                    ))}
+                  </ul>
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mt: 1 }}>
+                    {exp.tech.map((t) => (
+                      <Chip
+                        key={t}
+                        label={t}
+                        size="small"
+                        sx={{
+                          background: 'rgba(229,9,20,0.13)',
+                          color: '#e50914',
+                          fontWeight: 600,
+                          fontSize: '0.95rem',
+                          borderRadius: 1,
+                        }}
+                      />
+                    ))}
+                  </Box>
+                </Box>
+              ))}
+            </Stack>
           )}
 
           {animatedSection(

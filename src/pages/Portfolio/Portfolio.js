@@ -1,14 +1,33 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable import/order */
+/* eslint-disable react/no-unused-state */
+/* eslint-disable prettier/prettier */
 /* eslint-disable react/no-array-index-key */
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import CloseIcon from '@mui/icons-material/Close';
-import CodeIcon from '@mui/icons-material/Code';
-import EmailIcon from '@mui/icons-material/Email';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import MenuIcon from '@mui/icons-material/Menu';
-import PhoneIcon from '@mui/icons-material/Phone';
-import SchoolIcon from '@mui/icons-material/School';
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import CloseIcon from "@mui/icons-material/Close";
+import CodeIcon from "@mui/icons-material/Code";
+import EmailIcon from "@mui/icons-material/Email";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import MenuIcon from "@mui/icons-material/Menu";
+import PhoneIcon from "@mui/icons-material/Phone";
+import SchoolIcon from "@mui/icons-material/School";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import SendIcon from "@mui/icons-material/Send";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import ErrorIcon from "@mui/icons-material/Error";
+import BrushIcon from "@mui/icons-material/Brush";
+import StorageIcon from "@mui/icons-material/Storage";
+import BuildIcon from "@mui/icons-material/Build";
+import CloudIcon from "@mui/icons-material/Cloud";
+import ComputerIcon from "@mui/icons-material/Computer";
+import LanguageIcon from "@mui/icons-material/Language";
+import DownloadIcon from "@mui/icons-material/Download";
+import WorkIcon from "@mui/icons-material/Work";
+import AssignmentIcon from "@mui/icons-material/Assignment";
+import StarIcon from "@mui/icons-material/Star";
+
 import {
   Box,
   Typography,
@@ -19,320 +38,666 @@ import {
   Stack,
   Container,
   Paper,
-  Divider,
   Chip,
-} from '@mui/material';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import { styled } from '@mui/system';
-import { motion } from 'framer-motion';
+  Button,
+  TextField,
+  CardActions,
+  Link,
+  Alert,
+  CircularProgress,
+  Snackbar,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
+import Drawer from "@mui/material/Drawer";
+import IconButton from "@mui/material/IconButton";
+import { styled } from "@mui/system";
+import { motion } from "framer-motion";
+
+const ACCENT = "#0b79d0";
+const ACCENT_DARK = "#095f9e";
+const ACCENT_RGBA = "rgba(11,121,208,0.12)";
+const MUTED = "rgba(230,238,248,0.75)";
+const MUTED_LIGHT = "rgba(230,238,248,0.55)";
 
 const GradientBackground = styled(Box)(({ theme }) => ({
-  minHeight: '100vh',
-  width: '100vw',
-  background: 'linear-gradient(135deg, #181818 0%, #232526 100%)',
-  backgroundAttachment: 'fixed',
-  color: '#fff',
-  fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-  fontSize: '16px',
+  minHeight: "100vh",
+  width: "100%",
+  background: `linear-gradient(180deg, #071021 0%, #061022 100%)`,
+  color: MUTED,
+  fontFamily: "'Inter', 'Nunito Sans', Helvetica, Arial, sans-serif",
+  fontSize: "16px",
   lineHeight: 1.6,
-  overflowX: 'hidden',
-  paddingTop: 80,
-  [theme.breakpoints.down('sm')]: {
+  overflowX: "hidden",
+  paddingTop: 88,
+  [theme.breakpoints.down("sm")]: {
+    paddingTop: 72,
+    width: "100vw",
+    overflowX: "hidden",
+  },
+  [theme.breakpoints.down("xs")]: {
     paddingTop: 64,
   },
 }));
 
 const GlassNav = styled(Box)(({ theme }) => ({
-  position: 'fixed',
+  position: "fixed",
   top: 0,
   left: 0,
-  width: '100vw',
+  width: "100%",
   zIndex: 1200,
-  background: 'rgba(20,20,20,0.85)',
-  backdropFilter: 'blur(16px)',
-  borderBottom: '1.5px solid rgba(255,255,255,0.07)',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  padding: theme.spacing(1.5, 4),
-  boxShadow: '0 2px 24px rgba(0,0,0,0.18)',
-  [theme.breakpoints.down('sm')]: {
-    padding: theme.spacing(1, 2),
+  background: "linear-gradient(180deg, rgba(6,9,14,0.82), rgba(6,9,14,0.6))",
+  borderBottom: "1px solid rgba(255,255,255,0.03)",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  padding: theme.spacing(1, 2),
+  boxShadow: "0 6px 18px rgba(2,6,23,0.45)",
+  [theme.breakpoints.up("md")]: {
+    padding: theme.spacing(1, 4),
+  },
+  [theme.breakpoints.down("xs")]: {
+    padding: theme.spacing(0.8, 1),
   },
 }));
 
-const NavLink = styled('a')(({ theme }) => ({
-  color: '#fff',
-  margin: theme.spacing(0, 2),
-  fontWeight: 700,
-  textDecoration: 'none',
-  letterSpacing: 1,
-  fontSize: '1.08rem',
-  borderRadius: 8,
-  padding: theme.spacing(0.7, 2),
-  transition: 'background 0.2s, color 0.2s',
-  '&:hover': {
-    background: 'rgba(229,9,20,0.18)',
-    color: '#e50914',
+const NavLink = styled("button")(({ theme }) => ({
+  color: MUTED,
+  margin: theme.spacing(0, 1.25),
+  fontWeight: 600,
+  textDecoration: "none",
+  letterSpacing: 0.3,
+  fontSize: "0.95rem",
+  padding: theme.spacing(0.4, 1.2),
+  borderRadius: 6,
+  transition: "background 0.14s, color 0.14s, transform 0.12s",
+  cursor: "pointer",
+  border: "none",
+  background: "transparent",
+  "&:hover": {
+    background: ACCENT_RGBA,
+    color: ACCENT,
+    transform: "translateY(-2px)",
   },
-  [theme.breakpoints.down('sm')]: {
-    display: 'block',
-    margin: theme.spacing(1, 0),
-    width: '100%',
-    textAlign: 'center',
-    fontSize: '1.2rem',
-    padding: theme.spacing(1.2, 0),
-    borderRadius: 12,
+  [theme.breakpoints.down("md")]: {
+    margin: theme.spacing(0, 0.8),
+    fontSize: "0.85rem",
   },
-}));
-
-const NavLinksBox = styled(Box)(({ theme }) => ({
-  [theme.breakpoints.down('sm')]: {
-    display: 'none',
+  [theme.breakpoints.down("sm")]: {
+    display: "block",
+    margin: theme.spacing(0.6, 0),
+    width: "100%",
+    textAlign: "center",
+    fontSize: "0.95rem",
   },
-}));
-
-const MobileMenuButton = styled(IconButton)(({ theme }) => ({
-  color: '#fff',
-  display: 'none',
-  [theme.breakpoints.down('sm')]: {
-    display: 'block',
-  },
-}));
-
-const MobileDrawerNav = styled(Box)(({ theme }) => ({
-  width: '100vw',
-  maxWidth: 320,
-  padding: theme.spacing(4, 2),
-  background: 'rgba(20,20,20,0.98)',
-  height: '100%',
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(2),
-  [theme.breakpoints.down('sm')]: {
-    padding: theme.spacing(4, 2),
-    width: '100vw',
-    maxWidth: '100vw',
-  },
-}));
-
-const HeroSection = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  minHeight: '60vh',
-  paddingTop: theme.spacing(8),
-  paddingBottom: theme.spacing(8),
-  textAlign: 'center',
-  [theme.breakpoints.down('sm')]: {
-    paddingTop: theme.spacing(6),
-    paddingBottom: theme.spacing(4),
-    minHeight: '40vh',
-  },
-}));
-
-const GlassCard = styled(Paper)(({ theme }) => ({
-  background: 'rgba(28,28,28,0.82)',
-  backdropFilter: 'blur(12px)',
-  borderRadius: theme.spacing(4),
-  boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.18)',
-  color: '#fff',
-  overflow: 'hidden',
-  minHeight: '180px',
-  border: '1.5px solid rgba(255,255,255,0.10)',
-  padding: theme.spacing(5, 4),
-  [theme.breakpoints.down('sm')]: {
-    padding: theme.spacing(2, 1.5),
-    minHeight: '120px',
-    borderRadius: theme.spacing(2),
+  [theme.breakpoints.down("xs")]: {
+    fontSize: "0.9rem",
+    padding: theme.spacing(0.3, 0.8),
   },
 }));
 
 const SectionTitle = styled(Typography)(({ theme }) => ({
-  fontWeight: 900,
-  fontSize: 'clamp(1.4rem, 4vw, 2.3rem)',
-  marginBottom: theme.spacing(3),
-  color: '#e50914',
-  letterSpacing: '1.5px',
-  textTransform: 'uppercase',
-  textAlign: 'center',
-  whiteSpace: 'nowrap',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  [theme.breakpoints.down('sm')]: {
-    whiteSpace: 'normal',
-    fontSize: '1.2rem',
-    marginBottom: theme.spacing(2),
+  fontWeight: 800,
+  fontSize: "1.05rem",
+  marginBottom: theme.spacing(2),
+  color: ACCENT,
+  letterSpacing: "1px",
+  textTransform: "uppercase",
+  textAlign: "left",
+  display: "flex",
+  alignItems: "center",
+  gap: theme.spacing(1),
+  [theme.breakpoints.down("sm")]: {
+    textAlign: "center",
+    justifyContent: "center",
+    fontSize: "0.95rem",
+  },
+  [theme.breakpoints.down("xs")]: {
+    fontSize: "0.85rem",
+    gap: theme.spacing(0.5),
   },
 }));
 
-const ScrollTopButton = styled(ArrowUpwardIcon)(({ theme }) => ({
-  position: 'fixed',
-  bottom: theme.spacing(4),
-  right: theme.spacing(4),
-  background: '#e50914',
-  color: '#fff',
-  borderRadius: '50%',
-  padding: theme.spacing(1.2),
-  boxShadow: '0 4px 24px rgba(229,9,20,0.4)',
-  cursor: 'pointer',
-  zIndex: 2000,
-  fontSize: '2.5rem',
-  opacity: 0.85,
-  transition: 'background 0.2s, opacity 0.2s',
-  '&:hover': {
-    background: '#b20710',
-    opacity: 1,
+const HeroSection = styled(Box)(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  paddingTop: theme.spacing(8),
+  paddingBottom: theme.spacing(6),
+  [theme.breakpoints.up("md")]: {
+    paddingTop: theme.spacing(12),
+    paddingBottom: theme.spacing(10),
+  },
+  [theme.breakpoints.down("xs")]: {
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
   },
 }));
 
-const Footer = styled(Box)(({ theme }) => ({
-  textAlign: 'center',
-  color: '#888',
-  fontSize: '1rem',
-  padding: theme.spacing(4, 0, 2, 0),
-  marginTop: theme.spacing(8),
-  borderTop: '1.5px solid rgba(255,255,255,0.09)',
-  letterSpacing: 1,
-  background: 'rgba(20,20,20,0.85)',
-  [theme.breakpoints.down('sm')]: {
-    marginTop: theme.spacing(4),
-    fontSize: '0.95rem',
-    padding: theme.spacing(2, 0, 1, 0),
+const GlassCard = styled(Paper)(({ theme }) => ({
+  background: "linear-gradient(180deg, rgba(8,10,14,0.78), rgba(6,8,12,0.78))",
+  backdropFilter: "blur(6px)",
+  borderRadius: theme.spacing(2),
+  boxShadow: `0 10px 30px rgba(2,6,23,0.45)`,
+  color: MUTED,
+  overflow: "hidden",
+  minHeight: "120px",
+  border: `1px solid rgba(255,255,255,0.03)`,
+  padding: theme.spacing(4),
+  [theme.breakpoints.down("md")]: {
+    padding: theme.spacing(3),
+  },
+  [theme.breakpoints.down("sm")]: {
+    padding: theme.spacing(2),
+    minHeight: "auto",
+    borderRadius: theme.spacing(1.5),
+  },
+  [theme.breakpoints.down("xs")]: {
+    padding: theme.spacing(1.5),
+    borderRadius: theme.spacing(1),
   },
 }));
-
-const scrollFadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.18, // faster
-      ease: 'easeOut',
-      staggerChildren: 0.05,
-    },
-  },
-};
 
 const projectCardStyles = {
-  height: '100%',
-  borderRadius: 18,
-  background: 'rgba(28,28,28,0.92)',
-  transition: 'transform 0.3s, box-shadow 0.3s, background 0.3s',
-  color: '#fff',
+  height: "100%",
+  borderRadius: 12,
+  background: "transparent",
+  transition: "transform 0.2s, box-shadow 0.2s",
+  color: MUTED,
   p: 2,
-  boxShadow: '0 8px 32px 0 rgba(229,9,20,0.10)',
-  border: '1px solid rgba(229,9,20,0.09)',
-  '&:hover': {
-    transform: 'translateY(-10px) scale(1.04)',
-    boxShadow: '0 16px 48px rgba(229,9,20,0.25)',
-    background: 'rgba(28,28,28,0.98)',
+  boxShadow: "none",
+  border: `1px solid rgba(255,255,255,0.04)`,
+  "&:hover": {
+    transform: "translateY(-6px)",
+    boxShadow: `0 18px 48px ${ACCENT}22`,
+    borderColor: ACCENT_RGBA,
   },
 };
 
 const education = [
   {
-    degree: 'Bachelor of Technology – Computer Science and Engineering',
-    institution: 'National Institute of Technology (NIT), Mizoram',
-    year: 'Aug 2018 – May 2022',
+    degree: "Bachelor of Technology – Computer Science and Engineering",
+    institution: "National Institute of Technology (NIT), Mizoram",
+    year: "Aug 2018 – May 2022",
   },
   {
-    degree: 'Intermediate',
-    institution: 'Sri Chaitanya Vidhya Niketan, Vishakhapatnam',
-    year: '2017',
+    degree: "Intermediate",
+    institution: "Sri Chaitanya Vidhya Niketan, Vishakhapatnam",
+    year: "2017",
   },
   {
-    degree: 'Matriculation',
-    institution: 'B.D. Public School, Patna',
-    year: '2015',
+    degree: "Matriculation",
+    institution: "B.D. Public School, Patna",
+    year: "2015",
   },
 ];
 
 const experience = [
   {
-    company: 'Star Intellisoft Services Private Limited',
-    location: '',
-    title: 'Software Engineer',
-    period: 'March 2023 – Current',
+    company: "Star Intellisoft Services Private Limited",
+    location: "",
+    title: "Software Engineer",
+    period: "March 2023 – Current",
     details: [
-      <span>
+      <span key="title">
         <b>
-          Web and Mobile App Development | Al Habtoor Motors, Oman Trading Establishment and Towell
-          Auto Center
+          Web and Mobile App Development | Al Habtoor Motors, Oman Trading
+          Establishment and Towell Auto Center
         </b>
       </span>,
-      'Developed responsive web apps with React.js and JavaScript, and cross-platform mobile apps with React Native for Android.',
-      'Designed UIs using HTML, CSS, Flexbox, and Grid, ensuring accessibility and modern design standards.',
-      'Integrated REST APIs with Axios and managed state with Redux for efficient data flow.',
-      'Optimized performance through lazy loading, code splitting, and tools like Chrome DevTools.',
-      'Implemented CI/CD with GitHub Actions, deploying apps via Azure and Codemagic.',
-      'Ensured quality with unit/integration tests using Jest and React Testing Library.',
-      'Collaborated in agile teams using Jira, delivering features on time.',
-      <span>
+      "Developed responsive web apps with React.js and JavaScript, and cross-platform mobile apps with React Native for Android.",
+      "Designed UIs using HTML, CSS, Flexbox, and Grid, ensuring accessibility and modern design standards.",
+      "Integrated REST APIs with Axios and managed state with Redux for efficient data flow.",
+      "Optimized performance through lazy loading, code splitting, and tools like Chrome DevTools.",
+      "Implemented CI/CD with GitHub Actions, deploying apps via Azure and Codemagic.",
+      "Ensured quality with unit/integration tests using Jest and React Testing Library.",
+      "Collaborated in agile teams using Jira, delivering features on time.",
+      <span key="tech">
         <b>Tech Stack:</b> React Native, React.js, JavaScript, HTML, CSS
       </span>,
     ],
-    tech: ['React Native', 'React.js', 'JavaScript', 'HTML', 'CSS'],
   },
   {
-    company: 'Tool Room and Training Center, Guwahati',
-    location: '',
-    title: 'Software Development - Intern',
-    period: 'Dec 2020 – Apr 2021',
+    company: "Tool Room and Training Center, Guwahati",
+    location: "",
+    title: "Software Development - Intern",
+    period: "Dec 2020 – Apr 2021",
     details: [
-      <span>
-        <b>Java Developer Trainee:</b> Improved my skills as a Java Developer by working on
-        different Java APIs in projects. This job gave me useful experience and helped me better
-        understand how to develop Java applications and solve problems.
+      <span key="java">
+        <b>Java Developer Trainee:</b> Improved my skills as a Java Developer by
+        working on different Java APIs in projects. This job gave me useful
+        experience and helped me better understand how to develop Java
+        applications and solve problems.
         <br />
         <b>Tech Stack:</b> Core Java, SQL
       </span>,
-      <span>
-        <b>Graphics and Web Designer Trainee:</b> Improved my proficiency in HTML and CSS,
-        contributing to web design projects. This role enhanced my ability to design user-friendly
-        websites and implement visually appealing, responsive layouts.
+      <span key="web">
+        <b>Graphics and Web Designer Trainee:</b> Improved my proficiency in
+        HTML and CSS, contributing to web design projects. This role enhanced my
+        ability to design user-friendly websites and implement visually
+        appealing, responsive layouts.
         <br />
         <b>Tech Stack:</b> HTML, CSS, JavaScript
       </span>,
     ],
-    tech: ['Core Java', 'SQL', 'HTML', 'CSS', 'JavaScript'],
   },
 ];
 
-const skills = {
-  'Programming Languages': ['JavaScript', 'Python', 'SQL', 'Core Java', 'HTML5', 'CSS3'],
-  Development: ['ReactJS', 'React Native', 'Redux', 'Material UI', 'Bootstrap'],
-  'Developer Tools': [
-    'VS Code',
-    'Postman',
-    'MySQL Workbench',
-    'PostgreSQL Workbench',
-    'Git',
-    'Bitbucket',
-    'GitHub',
-    'Codemagic',
-    'Postman',
-  ],
-  'Cloud & Deployment': ['Microsoft Azure'],
-};
-
 const projects = [
   {
-    title: 'Personal Portfolio',
-    year: '2025',
+    title: "Personal Portfolio",
+    year: "2025",
     description:
-      'Developed a responsive portfolio website using React.js and Material UI, incorporating smooth animations, a modern design, and mobile-friendly navigation. The project highlights my ability to create visually appealing and user-friendly interfaces, with a focus on performance and interactivity. The site offers a seamless experience across devices, ensuring a smooth browsing experience for users.',
-    stack: ['React.js', 'Material UI', 'JavaScript', 'CSS3'],
+      "Responsive portfolio website built with React.js and Material UI. Features smooth animations, dark mode toggle, lazy loading, and optimized performance. Implemented mobile-first responsive design with SEO basics.",
+    stack: [
+      "React.js",
+      "Material UI",
+      "JavaScript",
+      "CSS3",
+      "Responsive Design",
+    ],
+    demo: "https://Adityaryan7.github.io/Portfolio",
+    repo: "https://github.com/Adityaryan7/Portfolio",
   },
   {
-    title: 'COVID-19 Query Classification Chatbot',
-    year: 'Jan 2022 – Jun 2022',
+    title: "E-Commerce Dashboard",
+    year: "2024",
     description:
-      "I developed an NLP-based chatbot to provide accurate COVID-19 information and promote health behaviors. It classifies question-answer pairs from a dataset scraped from reputable sources, using Python for efficient implementation. The system's performance was evaluated with the F1-score to ensure effective user interaction and information delivery.",
-    stack: ['Python', 'NLP', 'Machine Learning'],
+      "Full-featured e-commerce dashboard with product filtering, search, and cart management. Integrated REST APIs with error handling, Redux state management, and Material UI components. Features real-time product updates and user authentication.",
+    stack: ["React.js", "Redux", "REST API", "Material UI", "JavaScript"],
+    demo: "https://product-dashboard-ecom.netlify.app/",
+    repo: "https://github.com/Adityaryan7/product",
+  },
+  {
+    title: "COVID-19 Query Classification Chatbot",
+    year: "Jan 2022 – Jun 2022",
+    description:
+      "NLP-based chatbot for COVID-19 information. Classifies Q&A pairs from web-scraped dataset using Python ML models. Evaluates performance using F1-score metrics.",
+    stack: ["Python", "NLP", "Machine Learning", "scikit-learn"],
+  
+  },
+];
+
+const scrollFadeUp = {
+  hidden: { opacity: 0, y: 18 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
+
+const NavLinksBox = styled(Box)(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  gap: theme.spacing(1.5),
+  [theme.breakpoints.down("md")]: {
+    gap: theme.spacing(0.8),
+  },
+  [theme.breakpoints.down("sm")]: {
+    display: "none",
+  },
+}));
+
+const MobileMenuButton = styled(IconButton)(({ theme }) => ({
+  display: "none",
+  color: "#fff",
+  [theme.breakpoints.down("sm")]: {
+    display: "flex",
+  },
+  [theme.breakpoints.down("xs")]: {
+    padding: theme.spacing(0.5),
+  },
+}));
+
+const MobileDrawerNav = styled(Box)(({ theme }) => ({
+  paddingTop: theme.spacing(2),
+  paddingBottom: theme.spacing(2),
+  paddingLeft: theme.spacing(3),
+  paddingRight: theme.spacing(3),
+  display: "flex",
+  flexDirection: "column",
+  gap: theme.spacing(1),
+  [theme.breakpoints.down("xs")]: {
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+  },
+}));
+
+const Footer = styled(Box)(({ theme }) => ({
+  marginTop: theme.spacing(6),
+  paddingTop: theme.spacing(3),
+  paddingBottom: theme.spacing(3),
+  paddingLeft: theme.spacing(2),
+  paddingRight: theme.spacing(2),
+  textAlign: "center",
+  color: "rgba(255,255,255,0.65)",
+  [theme.breakpoints.down("sm")]: {
+    marginTop: theme.spacing(4),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+  },
+  [theme.breakpoints.down("xs")]: {
+    fontSize: "0.85rem",
+  },
+}));
+
+const ScrollTopButton = styled(Box)(({ theme }) => ({
+  position: "fixed",
+  bottom: theme.spacing(4),
+  right: theme.spacing(4),
+  background: ACCENT,
+  color: "#fff",
+  borderRadius: "50%",
+  padding: theme.spacing(1.05),
+  boxShadow: `0 6px 30px ${ACCENT}33`,
+  cursor: "pointer",
+  zIndex: 2000,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  width: 56,
+  height: 56,
+  opacity: 0.95,
+  transition: "background 0.18s, transform 0.12s",
+  "&:hover": {
+    background: ACCENT_DARK,
+    transform: "translateY(-4px)",
+  },
+  [theme.breakpoints.down("sm")]: {
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
+    width: 48,
+    height: 48,
+  },
+  [theme.breakpoints.down("xs")]: {
+    width: 44,
+    height: 44,
+    bottom: theme.spacing(1.5),
+    right: theme.spacing(1.5),
+  },
+}));
+
+// TimelineItem Component
+const TimelineItem = ({ title, subtitle, period, bullets = [] }) => (
+  <Box sx={{ mb: 3 }}>
+    <Typography
+      variant="h6"
+      sx={{
+        color: ACCENT,
+        fontWeight: 700,
+        fontSize: { xs: "0.95rem", sm: "1rem", md: "1.1rem" },
+      }}
+    >
+      {title}{" "}
+      <Typography
+        component="span"
+        sx={{
+          color: MUTED_LIGHT,
+          fontWeight: 600,
+          fontSize: "0.9em",
+        }}
+      >
+        — {subtitle}
+      </Typography>
+    </Typography>
+    <Typography
+      variant="caption"
+      sx={{ color: MUTED_LIGHT, display: "block", mb: 1, fontSize: "0.8rem" }}
+    >
+      {period}
+    </Typography>
+    <ul
+      style={{
+        margin: 0,
+        paddingLeft: 18,
+      }}
+    >
+      {bullets.map((b, i) => (
+        <li
+          key={i}
+          style={{
+            color: "#eee",
+            marginBottom: 6,
+            fontSize: "0.9rem",
+            lineHeight: "1.5",
+          }}
+        >
+          {b}
+        </li>
+      ))}
+    </ul>
+  </Box>
+);
+
+// ProjectCard Component
+const ProjectCard = ({ project }) => (
+  <Card
+    component={motion.div}
+    whileHover={{ scale: 1.03 }}
+    sx={{
+      ...projectCardStyles,
+      display: "flex",
+      flexDirection: "column",
+      height: "100%",
+    }}
+  >
+    <CardContent sx={{ flex: 1 }}>
+      <Box display="flex" alignItems="flex-start" gap={1} mb={1}>
+        <CodeIcon sx={{ color: ACCENT, fontSize: { xs: 18, sm: 24 } }} />
+        <Box sx={{ flex: 1, minWidth: 0 }}>
+          <Typography
+            variant="h6"
+            fontWeight={700}
+            sx={{
+              color: ACCENT,
+              fontSize: { xs: "0.9rem", sm: "1rem", md: "1.1rem" },
+              wordBreak: "break-word",
+            }}
+          >
+            {project.title}
+          </Typography>
+          <Typography variant="caption" sx={{ color: MUTED_LIGHT }}>
+            {project.year}
+          </Typography>
+        </Box>
+      </Box>
+      <Typography
+        variant="body2"
+        sx={{
+          color: "#eee",
+          mb: 2,
+          lineHeight: 1.6,
+          fontSize: { xs: "0.85rem", sm: "0.9rem" },
+        }}
+      >
+        {project.description}
+      </Typography>
+      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.75 }}>
+        {project.stack.map((t) => (
+          <Chip
+            key={t}
+            label={t}
+            size="small"
+            sx={{
+              border: `1px solid ${ACCENT}33`,
+              color: ACCENT,
+              background: `${ACCENT}08`,
+              fontWeight: 600,
+              fontSize: { xs: "0.65rem", sm: "0.75rem" },
+              height: "auto",
+              padding: "4px 6px",
+            }}
+          />
+        ))}
+      </Box>
+    </CardContent>
+    {(project.demo || project.repo) && (
+      <CardActions sx={{ pt: 0, pb: 2, px: 2, gap: 1, flexWrap: "wrap" }}>
+        {project.demo && project.demo !== "#" && (
+          <Button
+            size="small"
+            variant="contained"
+            href={project.demo}
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              background: ACCENT,
+              fontSize: { xs: "0.75rem", sm: "0.875rem" },
+              padding: { xs: "4px 8px", sm: "6px 12px" },
+              "&:hover": { background: ACCENT_DARK },
+            }}
+          >
+            Live Demo
+          </Button>
+        )}
+        {project.repo && project.repo !== "#" && (
+          <Button
+            size="small"
+            variant="outlined"
+            href={project.repo}
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              borderColor: ACCENT,
+              color: ACCENT,
+              fontSize: { xs: "0.75rem", sm: "0.875rem" },
+              padding: { xs: "4px 8px", sm: "6px 12px" },
+              "&:hover": {
+                borderColor: ACCENT_DARK,
+                color: ACCENT_DARK,
+              },
+            }}
+          >
+            GitHub
+          </Button>
+        )}
+      </CardActions>
+    )}
+  </Card>
+);
+
+// TestimonialCard Component
+const TestimonialCard = ({ quote, author, role }) => (
+  <Paper
+    sx={{
+      p: { xs: 2, sm: 3 },
+      background: "rgba(255,255,255,0.02)",
+      borderRadius: 2,
+      border: `1px solid ${ACCENT}22`,
+    }}
+  >
+    <Box display="flex" gap={0.5} mb={1}>
+      {[...Array(5)].map((_, i) => (
+        <StarIcon
+          key={i}
+          sx={{ color: ACCENT, fontSize: { xs: 14, sm: 16 } }}
+        />
+      ))}
+    </Box>
+    <Typography
+      variant="body2"
+      sx={{
+        color: MUTED_LIGHT,
+        mb: 1,
+        fontStyle: "italic",
+        fontSize: { xs: "0.85rem", sm: "0.9rem" },
+      }}
+    >{`"${quote}"`}</Typography>
+    <Typography
+      variant="subtitle2"
+      sx={{
+        color: ACCENT,
+        fontWeight: 700,
+        fontSize: { xs: "0.8rem", sm: "0.9rem" },
+      }}
+    >
+      {author}
+    </Typography>
+    <Typography
+      variant="caption"
+      sx={{ color: MUTED_LIGHT, fontSize: "0.75rem" }}
+    >
+      {role}
+    </Typography>
+  </Paper>
+);
+
+const testimonials = [
+  {
+    quote:
+      "Delivered polished UI and solid performance optimization. Always on time with high-quality code.",
+    author: "Product Manager",
+    role: "Star Intellisoft Services",
+  },
+  {
+    quote:
+      "Great at translating Figma designs to production-ready components with attention to detail.",
+    author: "Design Lead",
+    role: "Previous Project",
+  },
+];
+
+// Complete Skills Data
+const skillsData = [
+  {
+    category: "Languages",
+    icon: <LanguageIcon />,
+    skills: ["JavaScript", "Python", "SQL", "Core Java"],
+  },
+  {
+    category: "Frontend",
+    icon: <BrushIcon />,
+    skills: [
+      "React.js",
+      "React Native",
+      "Redux",
+      "Context API",
+      "Hooks",
+      "HTML5",
+      "CSS3",
+      "SCSS",
+      "Material UI",
+      "Bootstrap",
+      "Tailwind CSS",
+      "Responsive Design",
+    ],
+  },
+  {
+    category: "Developer Tools",
+    icon: <BuildIcon />,
+    skills: [
+      "VS Code",
+      "Git",
+      "GitHub",
+      "Bitbucket",
+      "Postman",
+      "MySQL Workbench",
+      "PostgreSQL Workbench",
+      "Chrome DevTools",
+      "Jest",
+    ],
+  },
+  {
+    category: "Cloud & Deployment",
+    icon: <CloudIcon />,
+    skills: ["Microsoft Azure", "Codemagic", "GitHub Actions", "CI/CD"],
+  },
+  {
+    category: "Databases",
+    icon: <StorageIcon />,
+    skills: ["MySQL", "PostgreSQL", "MongoDB", "REST APIs", "JSON"],
+  },
+  {
+    category: "Other",
+    icon: <ComputerIcon />,
+    skills: [
+      "API Integration",
+      "State Management",
+      "Performance Optimization",
+      "UI/UX Implementation",
+      "Agile Methodology",
+    ],
   },
 ];
 
@@ -341,21 +706,37 @@ class Portfolio extends Component {
     super(props);
     this.state = {
       showScroll: false,
-      typewriterText: '',
+      typewriterText: "",
       mobileNavOpen: false,
+      formData: {
+        name: "",
+        email: "",
+        message: "",
+      },
+      formStatus: {
+        loading: false,
+        success: false,
+        error: false,
+        message: "",
+      },
+      showSnackbar: false,
     };
-    // Update your typewriter phrases for accuracy
-    this.typewriterPhrases = ['Software Engineer', 'React.js | React Native | Redux'];
+
+    this.typewriterPhrases = [
+      "Frontend Developer",
+      "React.js & React Native Specialist",
+      "Building Scalable Web & Mobile Apps",
+    ];
     this.typewriterInterval = null;
   }
 
   componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener("scroll", this.handleScroll);
     this.startTypewriter();
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener("scroll", this.handleScroll);
     clearInterval(this.typewriterInterval);
   }
 
@@ -366,11 +747,11 @@ class Portfolio extends Component {
 
   scrollToSection = (id) => {
     const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'auto' });
+    if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
   scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   startTypewriter = () => {
@@ -414,16 +795,123 @@ class Portfolio extends Component {
     this.handleMobileNavClose();
   };
 
+  handleFormChange = (e) => {
+    const { name, value } = e.target;
+    this.setState((prevState) => ({
+      formData: {
+        ...prevState.formData,
+        [name]: value,
+      },
+    }));
+  };
+
+  handleFormSubmit = async (e) => {
+    e.preventDefault();
+    const { formData } = this.state;
+
+    // Validation
+    if (
+      !formData.name.trim() ||
+      !formData.email.trim() ||
+      !formData.message.trim()
+    ) {
+      this.setState({
+        formStatus: {
+          loading: false,
+          success: false,
+          error: true,
+          message: "Please fill in all fields",
+        },
+        showSnackbar: true,
+      });
+      return;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      this.setState({
+        formStatus: {
+          loading: false,
+          success: false,
+          error: true,
+          message: "Please enter a valid email address",
+        },
+        showSnackbar: true,
+      });
+      return;
+    }
+
+    this.setState({
+      formStatus: {
+        loading: true,
+        success: false,
+        error: false,
+        message: "",
+      },
+    });
+
+    try {
+      // Formspree form ID: xeezpdkg
+      const response = await fetch("https://formspree.io/f/xeezpdkg", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
+
+      if (response.ok) {
+        this.setState({
+          formData: {
+            name: "",
+            email: "",
+            message: "",
+          },
+          formStatus: {
+            loading: false,
+            success: true,
+            error: false,
+            message: "Message sent successfully! I'll get back to you soon.",
+          },
+          showSnackbar: true,
+        });
+      } else {
+        throw new Error("Failed to send message");
+      }
+    } catch (error) {
+      this.setState({
+        formStatus: {
+          loading: false,
+          success: false,
+          error: true,
+          message:
+            "Failed to send message. Please try again or email me directly.",
+        },
+        showSnackbar: true,
+      });
+    }
+  };
+
+  handleSnackbarClose = () => {
+    this.setState({ showSnackbar: false });
+  };
+
   render() {
     const resumeURL = `${process.env.PUBLIC_URL}/Aadi_Resume.pdf`;
+    const { formData, formStatus, showSnackbar } = this.state;
 
     const animatedSection = (id, title, content, isLast = false) => (
       <Box
         id={id}
         sx={{
           mb: isLast ? 0 : { xs: 2, sm: 3 },
-          px: { xs: 1, sm: 0 },
-          transition: 'margin-bottom 0.2s',
+          px: { xs: 1, sm: 1.5, md: 0 },
+          transition: "margin-bottom 0.2s",
         }}
       >
         <motion.div
@@ -431,9 +919,10 @@ class Portfolio extends Component {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.15 }}
+          sx={{ width: "100%" }}
         >
           <GlassCard>
-            <SectionTitle>{title}</SectionTitle>
+            {title && <SectionTitle>{title}</SectionTitle>}
             {content}
           </GlassCard>
         </motion.div>
@@ -446,10 +935,11 @@ class Portfolio extends Component {
           <Box
             display="flex"
             alignItems="center"
-            gap={2}
+            gap={{ xs: 1, sm: 1.5, md: 2 }}
             sx={{
-              width: 'auto',
-              justifyContent: 'flex-start',
+              width: "auto",
+              justifyContent: "flex-start",
+              flex: 1,
             }}
           >
             <Avatar
@@ -457,20 +947,23 @@ class Portfolio extends Component {
               alt="Aditya Kumar Aryan"
               loading="lazy"
               sx={{
-                width: 44,
-                height: 44,
-                boxShadow: '0 0 16px #e50914',
-                border: '2px solid #fff',
+                width: { xs: 36, sm: 40, md: 44 },
+                height: { xs: 36, sm: 40, md: 44 },
+                boxShadow: `0 0 16px ${ACCENT}`,
+                border: `2px solid #071021`,
+                flexShrink: 0,
               }}
             />
             <Typography
               variant="h6"
               fontWeight={900}
               sx={{
-                color: '#e50914',
-                letterSpacing: 2,
-                ml: 1,
-                fontSize: { xs: '1.1rem', sm: '1.3rem' },
+                color: ACCENT,
+                letterSpacing: { xs: 1, sm: 1.5, md: 2 },
+                fontSize: { xs: "0.9rem", sm: "1.1rem", md: "1.3rem" },
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
               }}
             >
               Aryan Portfolio
@@ -478,44 +971,38 @@ class Portfolio extends Component {
           </Box>
           <NavLinksBox>
             <NavLink
-              href="#about"
               aria-label="About section"
-              onClick={() => this.scrollToSection('about')}
+              onClick={() => this.scrollToSection("about")}
             >
               About
             </NavLink>
             <NavLink
-              href="#experience"
               aria-label="Experience section"
-              onClick={() => this.scrollToSection('experience')}
+              onClick={() => this.scrollToSection("experience")}
             >
               Experience
             </NavLink>
             <NavLink
-              href="#skills"
               aria-label="Skills section"
-              onClick={() => this.scrollToSection('skills')}
+              onClick={() => this.scrollToSection("skills")}
             >
               Skills
             </NavLink>
             <NavLink
-              href="#projects"
               aria-label="Projects section"
-              onClick={() => this.scrollToSection('projects')}
+              onClick={() => this.scrollToSection("projects")}
             >
               Projects
             </NavLink>
             <NavLink
-              href="#education"
               aria-label="Education section"
-              onClick={() => this.scrollToSection('education')}
+              onClick={() => this.scrollToSection("education")}
             >
               Education
             </NavLink>
             <NavLink
-              href="#contact"
               aria-label="Contact section"
-              onClick={() => this.scrollToSection('contact')}
+              onClick={() => this.scrollToSection("contact")}
             >
               Contact
             </NavLink>
@@ -524,7 +1011,7 @@ class Portfolio extends Component {
             edge="end"
             aria-label="menu"
             onClick={this.handleMobileNavOpen}
-            sx={{ ml: 2 }}
+            sx={{ ml: 1 }}
           >
             <MenuIcon fontSize="large" />
           </MobileMenuButton>
@@ -534,42 +1021,54 @@ class Portfolio extends Component {
             onClose={this.handleMobileNavClose}
             PaperProps={{
               sx: {
-                background: 'rgba(20,20,20,0.98)',
+                background: "rgba(20,20,20,0.98)",
                 borderRadius: 0,
-                width: '100vw',
-                maxWidth: '100vw',
+                width: "100%",
+                maxWidth: "100%",
               },
             }}
           >
             <MobileDrawerNav>
-              <Box display="flex" alignItems="center" justifyContent="space-between" mb={2}>
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+                mb={2}
+              >
                 <Typography
                   variant="h6"
                   fontWeight={900}
-                  sx={{ color: '#e50914', letterSpacing: 2 }}
+                  sx={{
+                    color: ACCENT,
+                    letterSpacing: 2,
+                    fontSize: { xs: "0.95rem", sm: "1.1rem" },
+                  }}
                 >
                   Menu
                 </Typography>
-                <IconButton onClick={this.handleMobileNavClose} sx={{ color: '#fff' }}>
+                <IconButton
+                  onClick={this.handleMobileNavClose}
+                  sx={{ color: "#fff" }}
+                >
                   <CloseIcon />
                 </IconButton>
               </Box>
-              <NavLink href="#about" onClick={() => this.handleMobileNavClick('about')}>
+              <NavLink onClick={() => this.handleMobileNavClick("about")}>
                 About
               </NavLink>
-              <NavLink href="#experience" onClick={() => this.handleMobileNavClick('experience')}>
+              <NavLink onClick={() => this.handleMobileNavClick("experience")}>
                 Experience
               </NavLink>
-              <NavLink href="#skills" onClick={() => this.handleMobileNavClick('skills')}>
+              <NavLink onClick={() => this.handleMobileNavClick("skills")}>
                 Skills
               </NavLink>
-              <NavLink href="#projects" onClick={() => this.handleMobileNavClick('projects')}>
+              <NavLink onClick={() => this.handleMobileNavClick("projects")}>
                 Projects
               </NavLink>
-              <NavLink href="#education" onClick={() => this.handleMobileNavClick('education')}>
+              <NavLink onClick={() => this.handleMobileNavClick("education")}>
                 Education
               </NavLink>
-              <NavLink href="#contact" onClick={() => this.handleMobileNavClick('contact')}>
+              <NavLink onClick={() => this.handleMobileNavClick("contact")}>
                 Contact
               </NavLink>
             </MobileDrawerNav>
@@ -578,362 +1077,775 @@ class Portfolio extends Component {
 
         {/* Hero Section */}
         <HeroSection>
-          <Box
-            component={motion.div}
-            variants={scrollFadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
-          >
-            <Avatar
-              src={`${process.env.PUBLIC_URL}/28399.jpg`}
-              alt="Aditya Kumar Aryan"
-              sx={{
-                width: { xs: 110, sm: 150, md: 180 },
-                height: { xs: 110, sm: 150, md: 180 },
-                mx: 'auto',
-                boxShadow: '0 0 64px #e50914, 0 0 0 6px #fff',
-                border: '5px solid #fff',
-                mb: 2,
-              }}
-            />
-            <Typography
-              variant="h2"
-              fontWeight={900}
-              sx={{
-                color: '#fff',
-                fontSize: { xs: '2.1rem', sm: '2.7rem', md: '3.8rem' },
-                letterSpacing: 2,
-                mb: 1,
-                textShadow: '0 2px 12px #e5091440',
-              }}
+          <Container maxWidth="lg">
+            <Box
+              component={motion.div}
+              variants={scrollFadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.15 }}
+              sx={{ width: "100%" }}
             >
-              Aditya Kumar Aryan
-            </Typography>
-            <Typography
-              variant="h5"
-              sx={{
-                color: '#e50914',
-                fontWeight: 700,
-                fontSize: { xs: '1.1rem', sm: '1.3rem', md: '1.7rem' },
-                minHeight: 36,
-                mb: 2,
-                letterSpacing: 1,
-                fontFamily: 'monospace',
-              }}
-            >
-              {this.state.typewriterText}
-              <span style={{ color: '#fff', opacity: 0.7 }}>|</span>
-            </Typography>
-            <Typography
-              variant="body1"
-              sx={{
-                color: 'rgba(255,255,255,0.85)',
-                fontWeight: 500,
-                fontSize: 'clamp(1.05rem, 2.5vw, 1.2rem)',
-                maxWidth: 600,
-                mx: 'auto',
-                mb: 2,
-              }}
-            >
-              Frontend Developer at Star Intellisoft Services Pvt. Ltd.
-              <br />
-              Passionate about building beautiful, performant, and accessible web & mobile apps.
-            </Typography>
-            <a
-              href={resumeURL}
-              download="Aadi_Resume.pdf"
-              style={{
-                background: 'linear-gradient(90deg,#e50914 60%,#b20710 100%)',
-                padding: '14px 32px',
-                borderRadius: '10px',
-                color: '#fff',
-                fontWeight: 700,
-                textDecoration: 'none',
-                cursor: 'pointer',
-                fontSize: '1.1rem',
-                letterSpacing: 1,
-                boxShadow: '0 4px 24px rgba(229,9,20,0.18)',
-                transition: 'background-color 0.3s, transform 0.2s',
-                display: 'inline-block',
-                marginTop: 16,
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#b20710';
-                e.currentTarget.style.transform = 'scale(1.04)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background =
-                  'linear-gradient(90deg,#e50914 60%,#b20710 100%)';
-                e.currentTarget.style.transform = 'scale(1)';
-              }}
-            >
-              Download Resume
-            </a>
-          </Box>
-        </HeroSection>
-
-        <Container
-          maxWidth="md"
-          sx={{
-            pt: 2,
-            pb: 6,
-            px: { xs: 0.5, sm: 2 },
-          }}
-        >
-          {animatedSection(
-            'about',
-            'About Me',
-            <Typography variant="body1" fontSize="1.18rem">
-              Software Engineer with 2+ years of experience in React.js, React Native, JavaScript,
-              HTML5, CSS3, and Redux. Skilled in building responsive, scalable web and mobile apps,
-              integrating APIs, and optimizing UI performance. Hands-on with Azure, CI/CD pipelines,
-              and testing, passionate about creating modern, user-friendly interfaces.
-            </Typography>
-          )}
-
-          {animatedSection(
-            'experience',
-            'Experience',
-            <Stack spacing={3}>
-              {experience.map((exp) => (
-                <Box key={exp.company}>
-                  <Typography variant="h6" sx={{ color: '#e50914', mb: 0.5 }}>
-                    {exp.title} @ {exp.company}
+              <Grid
+                container
+                spacing={{ xs: 2, sm: 3, md: 4 }}
+                alignItems="center"
+              >
+                <Grid item xs={12} md={7}>
+                  <Typography
+                    variant="h2"
+                    fontWeight={800}
+                    sx={{
+                      color: "#fff",
+                      fontSize: { xs: "1.6rem", sm: "2rem", md: "2.8rem" },
+                      letterSpacing: 0.6,
+                      mb: 1,
+                      lineHeight: 1.04,
+                    }}
+                  >
+                    Aditya Kumar Aryan
                   </Typography>
-                  <Typography variant="body2" sx={{ color: '#aaa', mb: 0.5 }}>
-                    {exp.period} &mdash; {exp.location}
+
+                  <Typography
+                    variant="h4"
+                    sx={{
+                      color: ACCENT,
+                      fontWeight: 700,
+                      fontSize: { xs: "1rem", sm: "1.3rem", md: "1.6rem" },
+                      mb: 1,
+                      letterSpacing: 0.5,
+                    }}
+                  >
+                    Frontend Developer
                   </Typography>
-                  <ul style={{ margin: 0, paddingLeft: 18 }}>
-                    {exp.details.map((d, i) => (
-                      <li key={i} style={{ marginBottom: 4, fontSize: '1rem', color: '#eee' }}>
-                        {d}
-                      </li>
-                    ))}
-                  </ul>
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mt: 1 }}>
-                    {exp.tech.map((t) => (
+
+                  <Typography
+                    variant="subtitle1"
+                    sx={{
+                      color: MUTED_LIGHT,
+                      fontWeight: 500,
+                      fontSize: { xs: "0.85rem", sm: "0.95rem", md: "1.05rem" },
+                      mb: 3,
+                      letterSpacing: 0.3,
+                    }}
+                  >
+                    Building scalable, high-performance web interfaces with
+                    modern JavaScript
+                  </Typography>
+
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      color: MUTED_LIGHT,
+                      fontSize: { xs: "0.9rem", sm: "0.95rem", md: "1rem" },
+                      maxWidth: 720,
+                      mb: 3,
+                      lineHeight: 1.8,
+                    }}
+                  >
+                    3+ years of hands-on experience building responsive,
+                    accessible, and performance-optimized web applications. I
+                    specialize in React.js, React Native, JavaScript (ES6+), and
+                    modern UI development. I focus on clean component
+                    architecture, code reusability, and delivering
+                    production-ready solutions.
+                  </Typography>
+
+                  <Box
+                    display="flex"
+                    gap={{ xs: 1, sm: 2 }}
+                    flexWrap="wrap"
+                    mb={3}
+                  >
+                    <Button
+                      variant="contained"
+                      href={resumeURL}
+                      download="Aadi_Resume.pdf"
+                      startIcon={<DownloadIcon />}
+                      sx={{
+                        background: `linear-gradient(90deg, ${ACCENT} 50%, ${ACCENT_DARK} 100%)`,
+                        padding: {
+                          xs: "8px 16px",
+                          sm: "10px 20px",
+                          md: "12px 28px",
+                        },
+                        fontSize: { xs: "0.8rem", sm: "0.9rem", md: "1rem" },
+                        fontWeight: 700,
+                        textTransform: "none",
+                        borderRadius: 1,
+                        whiteSpace: "nowrap",
+                        "&:hover": {
+                          transform: "translateY(-2px)",
+                          boxShadow: `0 8px 30px ${ACCENT}33`,
+                        },
+                      }}
+                    >
+                      Download CV
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      onClick={() => this.scrollToSection("projects")}
+                      startIcon={<AssignmentIcon />}
+                      sx={{
+                        borderColor: ACCENT,
+                        color: ACCENT,
+                        padding: {
+                          xs: "8px 16px",
+                          sm: "10px 20px",
+                          md: "12px 28px",
+                        },
+                        fontSize: { xs: "0.8rem", sm: "0.9rem", md: "1rem" },
+                        fontWeight: 600,
+                        textTransform: "none",
+                        borderRadius: 1,
+                        whiteSpace: "nowrap",
+                        "&:hover": {
+                          borderColor: ACCENT_DARK,
+                          color: ACCENT_DARK,
+                          background: `${ACCENT}08`,
+                        },
+                      }}
+                    >
+                      View Projects
+                    </Button>
+                  </Box>
+
+                  <Box
+                    display="flex"
+                    gap={1}
+                    alignItems="center"
+                    flexWrap="wrap"
+                  >
+                    <Typography
+                      sx={{
+                        color: MUTED_LIGHT,
+                        fontWeight: 600,
+                        fontSize: { xs: "0.8rem", sm: "0.9rem" },
+                      }}
+                    >
+                      Specialized in:
+                    </Typography>
+                    {[
+                      "JavaScript ES6+",
+                      "React.js",
+                      "REST APIs",
+                      "Responsive Design",
+                    ].map((t) => (
                       <Chip
                         key={t}
                         label={t}
                         size="small"
                         sx={{
-                          background: 'rgba(229,9,20,0.13)',
-                          color: '#e50914',
+                          border: `1.5px solid ${ACCENT}`,
+                          color: ACCENT,
+                          background: `${ACCENT}08`,
                           fontWeight: 600,
-                          fontSize: '0.95rem',
-                          borderRadius: 1,
+                          fontSize: {
+                            xs: "0.65rem",
+                            sm: "0.75rem",
+                            md: "0.8rem",
+                          },
+                          height: "auto",
+                          padding: "3px 6px",
                         }}
                       />
                     ))}
                   </Box>
-                </Box>
-              ))}
-            </Stack>
-          )}
+                </Grid>
 
-          {animatedSection(
-            'skills',
-            'Skills',
-            <Stack spacing={3}>
-              {Object.entries(skills).map(([category, items]) => (
-                <Box key={category}>
-                  <Typography variant="h6" sx={{ color: '#e50914', mb: 1 }}>
-                    {category}
-                  </Typography>
+                {/* Right Side: Avatar */}
+                <Grid item xs={12} md={5}>
                   <Box
                     sx={{
-                      display: 'flex',
-                      flexWrap: 'wrap',
-                      gap: 1,
-                      overflowX: { xs: 'auto', sm: 'visible' },
+                      display: "flex",
+                      justifyContent: { xs: "center", md: "flex-end" },
+                      px: { xs: 2, sm: 0 },
                     }}
                   >
-                    {items.map((skill) => (
-                      <Chip
-                        key={skill}
-                        label={skill}
-                        color="default"
-                        variant="outlined"
+                    <Paper
+                      elevation={4}
+                      sx={{
+                        borderRadius: 2,
+                        overflow: "hidden",
+                        p: { xs: 1.5, sm: 2 },
+                        background:
+                          "linear-gradient(180deg, rgba(6,9,12,0.9), rgba(6,9,12,0.95))",
+                        border: `1px solid ${ACCENT}33`,
+                        width: { xs: 220, sm: 240, md: 280 },
+                        textAlign: "center",
+                      }}
+                    >
+                      <Avatar
+                        src={`${process.env.PUBLIC_URL}/28399.jpg`}
+                        alt="Aditya Kumar Aryan"
                         sx={{
-                          borderColor: '#e50914',
-                          color: '#fff',
-                          fontWeight: 500,
-                          background: 'rgba(229,9,20,0.07)',
-                          fontSize: { xs: '0.9rem', sm: '1rem' },
+                          width: { xs: 100, sm: 120, md: 140 },
+                          height: { xs: 100, sm: 120, md: 140 },
+                          mx: "auto",
+                          boxShadow: `0 10px 30px ${ACCENT}22`,
+                          mb: 2,
+                          border: `2px solid ${ACCENT}`,
                         }}
                       />
-                    ))}
+                      <Typography
+                        variant="h6"
+                        sx={{
+                          color: "#fff",
+                          fontWeight: 700,
+                          mb: 0.5,
+                          fontSize: { xs: "0.9rem", sm: "1rem", md: "1.1rem" },
+                        }}
+                      >
+                        Frontend Developer
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          color: MUTED_LIGHT,
+                          mb: 2,
+                          fontSize: {
+                            xs: "0.75rem",
+                            sm: "0.85rem",
+                            md: "0.9rem",
+                          },
+                        }}
+                      >
+                        React • Javascript • REST APIs • Responsive Design
+                      </Typography>
+                      <Box
+                        display="flex"
+                        justifyContent="center"
+                        gap={{ xs: 1, sm: 1.5 }}
+                      >
+                        <Link
+                          href="https://github.com/Adityaryan7"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          sx={{
+                            color: ACCENT,
+                            fontSize: { xs: "1.2rem", sm: "1.4rem" },
+                            transition: "transform 0.2s",
+                            cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            "&:hover": { transform: "scale(1.2)" },
+                          }}
+                        >
+                          <GitHubIcon />
+                        </Link>
+                        <Link
+                          href="https://www.linkedin.com/in/aditya-kumar-aryan-a3654a138"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          sx={{
+                            color: ACCENT,
+                            fontSize: { xs: "1.2rem", sm: "1.4rem" },
+                            transition: "transform 0.2s",
+                            cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            "&:hover": { transform: "scale(1.2)" },
+                          }}
+                        >
+                          <LinkedInIcon />
+                        </Link>
+                      </Box>
+                    </Paper>
                   </Box>
-                  <Divider sx={{ my: 2, borderColor: 'rgba(255,255,255,0.1)' }} />
-                </Box>
-              ))}
-            </Stack>
+                </Grid>
+              </Grid>
+            </Box>
+          </Container>
+        </HeroSection>
+
+        <Container
+          maxWidth="md"
+          sx={{
+            pt: { xs: 2, sm: 3, md: 4 },
+            pb: 6,
+            px: { xs: 1, sm: 2, md: 3 },
+          }}
+        >
+          {/* About Section */}
+          {animatedSection(
+            "about",
+            <Box display="flex" alignItems="center" gap={1}>
+              <ComputerIcon
+                sx={{ color: ACCENT, fontSize: { xs: 20, sm: 24 } }}
+              />
+              <span>About Me</span>
+            </Box>,
+            <Typography
+              variant="body1"
+              sx={{
+                fontSize: { xs: "0.9rem", sm: "0.95rem", md: "1rem" },
+                lineHeight: 1.8,
+                color: MUTED,
+              }}
+            >
+              I am a frontend developer with 3+ years of hands-on experience
+              building real-world web applications. I specialize in{" "}
+              <strong>JavaScript and React</strong>, focusing on clean
+              architecture, reusable components, and performance-optimized UI. I
+              have worked closely with designers, backend teams, and clients to
+              deliver production-ready solutions that scale.
+              <br />
+              <br />
+              <strong>My approach:</strong> Write clean, maintainable code •
+              Build accessible UIs • Optimize performance • Collaborate
+              effectively with teams.
+            </Typography>,
           )}
 
+          {/* Experience Section */}
           {animatedSection(
-            'projects',
-            'Projects',
-            <Grid container spacing={4}>
-              {projects.map((project) => (
-                <Grid item xs={12} sm={6} key={project.title}>
-                  <Card
-                    component={motion.div}
-                    whileHover={{ scale: 1.04, boxShadow: '0 16px 48px rgba(229,9,20,0.25)' }}
-                    sx={projectCardStyles}
+            "experience",
+            <Box display="flex" alignItems="center" gap={1}>
+              <WorkIcon sx={{ color: ACCENT, fontSize: { xs: 20, sm: 24 } }} />
+              <span>Experience</span>
+            </Box>,
+            <Stack spacing={2}>
+              {experience.map((exp) => (
+                <TimelineItem
+                  key={exp.company}
+                  title={`${exp.title} @ ${exp.company}`}
+                  subtitle={exp.location || "Remote / Onsite"}
+                  period={exp.period}
+                  bullets={exp.details.map((d) =>
+                    typeof d === "string" ? d : d,
+                  )}
+                />
+              ))}
+            </Stack>,
+          )}
+
+          {/* Skills Section */}
+          {animatedSection(
+            "skills",
+            <Box display="flex" alignItems="center" gap={1}>
+              <BuildIcon sx={{ color: ACCENT, fontSize: { xs: 20, sm: 24 } }} />
+              <span>Technical Skills</span>
+            </Box>,
+            <Grid container spacing={{ xs: 2, sm: 2.5, md: 3 }}>
+              {skillsData.map((skillGroup, idx) => (
+                <Grid item xs={12} sm={6} key={idx}>
+                  <Box
+                    sx={{
+                      p: { xs: 1.5, sm: 2 },
+                      background: "rgba(255,255,255,0.02)",
+                      borderRadius: 2,
+                      border: `1px solid ${ACCENT}22`,
+                      height: "100%",
+                    }}
                   >
-                    <CardContent>
-                      <Box display="flex" alignItems="center" gap={1} mb={1}>
-                        <CodeIcon sx={{ color: '#e50914' }} />
-                        <Typography variant="h6" fontWeight={700} sx={{ color: '#e50914' }}>
-                          {project.title}
-                        </Typography>
+                    <Box display="flex" alignItems="center" gap={1} mb={2}>
+                      <Box
+                        sx={{
+                          color: ACCENT,
+                          display: "flex",
+                          alignItems: "center",
+                          fontSize: { xs: "1.2rem", sm: "1.3rem" },
+                        }}
+                      >
+                        {skillGroup.icon}
                       </Box>
-                      <Divider sx={{ my: 1, borderColor: 'rgba(255,255,255,0.1)' }} />
-                      <Typography variant="body2" sx={{ color: '#eee', mb: 1 }}>
-                        {project.description}
+                      <Typography
+                        variant="h6"
+                        sx={{
+                          color: ACCENT,
+                          fontWeight: 700,
+                          fontSize: { xs: "0.85rem", sm: "0.95rem" },
+                        }}
+                      >
+                        {skillGroup.category}
                       </Typography>
-                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                        {project.stack.map((tech) => (
-                          <Chip
-                            key={tech}
-                            label={tech}
-                            size="small"
-                            sx={{
-                              background: 'rgba(229,9,20,0.13)',
-                              color: '#e50914',
-                              fontWeight: 600,
-                              fontSize: '0.95rem',
-                              borderRadius: 1,
-                            }}
-                          />
-                        ))}
-                      </Box>
-                    </CardContent>
-                  </Card>
+                    </Box>
+                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
+                      {skillGroup.skills.map((skill) => (
+                        <Chip
+                          key={skill}
+                          label={skill}
+                          sx={{
+                            background: `${ACCENT}12`,
+                            color: ACCENT,
+                            fontWeight: 600,
+                            border: `1px solid ${ACCENT}33`,
+                            fontSize: { xs: "0.65rem", sm: "0.75rem" },
+                            height: "auto",
+                            padding: "4px 6px",
+                          }}
+                        />
+                      ))}
+                    </Box>
+                  </Box>
                 </Grid>
               ))}
-            </Grid>
+            </Grid>,
           )}
 
+          {/* Projects Section */}
           {animatedSection(
-            'education',
-            'Education',
-            <Stack spacing={3}>
-              {education.map(({ degree, institution, year }) => (
-                <Box key={degree} display="flex" alignItems="center" gap={2}>
-                  <SchoolIcon sx={{ color: '#e50914', fontSize: 32 }} />
-                  <Box>
-                    <Typography variant="body1" fontWeight={700} fontSize="1.13rem">
-                      {degree}
+            "projects",
+            <Box display="flex" alignItems="center" gap={1}>
+              <CodeIcon sx={{ color: ACCENT, fontSize: { xs: 20, sm: 24 } }} />
+              <span>Projects</span>
+            </Box>,
+            <Grid container spacing={{ xs: 2, sm: 2.5, md: 3 }}>
+              {projects.map((project) => (
+                <Grid item xs={12} sm={6} key={project.title}>
+                  <ProjectCard project={project} />
+                </Grid>
+              ))}
+            </Grid>,
+          )}
+
+          {/* Education Section */}
+          {animatedSection(
+            "education",
+            <Box display="flex" alignItems="center" gap={1}>
+              <SchoolIcon
+                sx={{ color: ACCENT, fontSize: { xs: 20, sm: 24 } }}
+              />
+              <span>Education</span>
+            </Box>,
+            <Stack spacing={2}>
+              {education.map((ed, i) => (
+                <Box key={i} display="flex" alignItems="flex-start" gap={2}>
+                  <SchoolIcon
+                    sx={{
+                      color: ACCENT,
+                      mt: "6px",
+                      fontSize: { xs: 20, sm: 24, md: 28 },
+                      flexShrink: 0,
+                    }}
+                  />
+                  <Box sx={{ flex: 1, minWidth: 0 }}>
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        color: MUTED,
+                        fontWeight: 700,
+                        fontSize: { xs: "0.9rem", sm: "1rem", md: "1.1rem" },
+                      }}
+                    >
+                      {ed.degree}
                     </Typography>
-                    <Typography variant="body2" color="rgba(245, 245, 245, 0.7)" sx={{ mt: 0.5 }}>
-                      {institution} — {year}
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: MUTED_LIGHT,
+                        fontSize: { xs: "0.8rem", sm: "0.85rem", md: "0.9rem" },
+                      }}
+                    >
+                      {ed.institution} — {ed.year}
                     </Typography>
                   </Box>
                 </Box>
               ))}
-            </Stack>
+            </Stack>,
           )}
 
+          {/* Contact Section */}
           {animatedSection(
-            'contact',
-            'Contact',
-            <Stack spacing={2}>
-              <Typography variant="body1">
-                I am actively seeking new opportunities to contribute my skills and grow as a
-                Software Developer. If you have a suitable role or would like to discuss potential
-                collaborations, please feel free to get in touch.
-              </Typography>
-              <Box display="flex" alignItems="center" gap={1}>
-                <EmailIcon sx={{ color: '#e50914' }} />
-                <a
-                  href="mailto:adityakumararyan101@gmail.com"
-                  style={{
-                    color: '#fff',
-                    textDecoration: 'none',
-                    fontWeight: 500,
-                    transition: 'color 0.2s',
-                  }}
-                  onMouseOver={(e) => {
-                    e.currentTarget.style.color = '#e50914';
-                  }}
-                  onFocus={(e) => {
-                    e.currentTarget.style.color = '#e50914';
-                  }}
-                  onMouseOut={(e) => {
-                    e.currentTarget.style.color = '#fff';
-                  }}
-                  onBlur={(e) => {
-                    e.currentTarget.style.color = '#fff';
+            "contact",
+            <Box display="flex" alignItems="center" gap={1}>
+              <EmailIcon sx={{ color: ACCENT, fontSize: { xs: 20, sm: 24 } }} />
+              <span>Get In Touch</span>
+            </Box>,
+            <Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
+              <Grid item xs={12} md={6}>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    color: MUTED_LIGHT,
+                    mb: 2,
+                    fontSize: { xs: "0.9rem", sm: "0.95rem" },
                   }}
                 >
-                  adityakumararyan101@gmail.com
-                </a>
-              </Box>
-              <Box display="flex" alignItems="center" gap={1}>
-                <PhoneIcon sx={{ color: '#e50914' }} />
-                <a
-                  href="tel:+917782843264"
-                  style={{
-                    color: '#fff',
-                    textDecoration: 'none',
-                    fontWeight: 500,
-                    transition: 'color 0.2s',
-                  }}
-                  onMouseOver={(e) => {
-                    e.currentTarget.style.color = '#e50914';
-                  }}
-                  onFocus={(e) => {
-                    e.currentTarget.style.color = '#e50914';
-                  }}
-                  onMouseOut={(e) => {
-                    e.currentTarget.style.color = '#fff';
-                  }}
-                  onBlur={(e) => {
-                    e.currentTarget.style.color = '#fff';
-                  }}
+                  I am open to opportunities in frontend development, UI-focused
+                  features, and collaborative projects. Let&apos;s build
+                  something great together.
+                </Typography>
+
+                {formStatus.error && (
+                  <Alert
+                    severity="error"
+                    sx={{
+                      mb: 2,
+                      background: "rgba(211, 47, 47, 0.1)",
+                      color: "#ff5252",
+                      border: "1px solid #ff5252",
+                      fontSize: { xs: "0.8rem", sm: "0.9rem" },
+                    }}
+                    icon={<ErrorIcon />}
+                  >
+                    {formStatus.message}
+                  </Alert>
+                )}
+
+                {formStatus.success && (
+                  <Alert
+                    severity="success"
+                    sx={{
+                      mb: 2,
+                      background: "rgba(76, 175, 80, 0.1)",
+                      color: "#66bb6a",
+                      border: "1px solid #66bb6a",
+                      fontSize: { xs: "0.8rem", sm: "0.9rem" },
+                    }}
+                    icon={<CheckCircleIcon />}
+                  >
+                    {formStatus.message}
+                  </Alert>
+                )}
+
+                <Stack
+                  spacing={2}
+                  component="form"
+                  onSubmit={this.handleFormSubmit}
                 >
-                  +91 77828 43264
-                </a>
-              </Box>
-              <Box display="flex" alignItems="center" gap={1}>
-                <LinkedInIcon sx={{ color: '#e50914' }} />
-                <a
-                  href="https://www.linkedin.com/in/aditya-kumar-aryan-a3654a138"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    color: '#fff',
-                    textDecoration: 'none',
-                    fontWeight: 500,
-                    transition: 'color 0.2s',
-                  }}
-                  onMouseOver={(e) => {
-                    e.currentTarget.style.color = '#e50914';
-                  }}
-                  onFocus={(e) => {
-                    e.currentTarget.style.color = '#e50914';
-                  }}
-                  onMouseOut={(e) => {
-                    e.currentTarget.style.color = '#fff';
-                  }}
-                  onBlur={(e) => {
-                    e.currentTarget.style.color = '#fff';
-                  }}
-                >
-                  LinkedIn Profile
-                </a>
-              </Box>
-            </Stack>
+                  <TextField
+                    label="Your name"
+                    name="name"
+                    size="small"
+                    fullWidth
+                    variant="outlined"
+                    value={formData.name}
+                    onChange={this.handleFormChange}
+                    disabled={formStatus.loading}
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        color: MUTED,
+                        fontSize: { xs: "0.9rem", sm: "1rem" },
+                        "& fieldset": { borderColor: "rgba(255,255,255,0.1)" },
+                        "&:hover fieldset": {
+                          borderColor: ACCENT,
+                        },
+                        "&.Mui-focused fieldset": {
+                          borderColor: ACCENT,
+                        },
+                      },
+                      "& .MuiInputBase-input::placeholder": {
+                        color: MUTED_LIGHT,
+                        opacity: 1,
+                      },
+                    }}
+                  />
+                  <TextField
+                    label="Email"
+                    name="email"
+                    type="email"
+                    size="small"
+                    fullWidth
+                    variant="outlined"
+                    value={formData.email}
+                    onChange={this.handleFormChange}
+                    disabled={formStatus.loading}
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        color: MUTED,
+                        fontSize: { xs: "0.9rem", sm: "1rem" },
+                        "& fieldset": { borderColor: "rgba(255,255,255,0.1)" },
+                        "&:hover fieldset": {
+                          borderColor: ACCENT,
+                        },
+                        "&.Mui-focused fieldset": {
+                          borderColor: ACCENT,
+                        },
+                      },
+                    }}
+                  />
+                  <TextField
+                    label="Message"
+                    name="message"
+                    size="small"
+                    fullWidth
+                    multiline
+                    minRows={4}
+                    variant="outlined"
+                    value={formData.message}
+                    onChange={this.handleFormChange}
+                    disabled={formStatus.loading}
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        color: MUTED,
+                        fontSize: { xs: "0.9rem", sm: "1rem" },
+                        "& fieldset": { borderColor: "rgba(255,255,255,0.1)" },
+                        "&:hover fieldset": {
+                          borderColor: ACCENT,
+                        },
+                        "&.Mui-focused fieldset": {
+                          borderColor: ACCENT,
+                        },
+                      },
+                    }}
+                  />
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    disabled={formStatus.loading}
+                    startIcon={
+                      formStatus.loading ? (
+                        <CircularProgress size={20} sx={{ color: "#fff" }} />
+                      ) : (
+                        <SendIcon />
+                      )
+                    }
+                    sx={{
+                      background: ACCENT,
+                      width: { xs: "100%", sm: "auto" },
+                      padding: { xs: "10px 20px", sm: "10px 24px" },
+                      fontSize: { xs: "0.9rem", sm: "0.95rem" },
+                      fontWeight: 600,
+                      textTransform: "none",
+                      borderRadius: 1,
+                      whiteSpace: "nowrap",
+                      "&:hover": {
+                        background: ACCENT_DARK,
+                        transform: "translateY(-2px)",
+                      },
+                      "&:disabled": { opacity: 0.6 },
+                    }}
+                  >
+                    {formStatus.loading ? "Sending..." : "Send Message"}
+                  </Button>
+                </Stack>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Stack spacing={3}>
+                  <Box display="flex" alignItems="center" gap={2}>
+                    <EmailIcon
+                      sx={{
+                        color: ACCENT,
+                        fontSize: { xs: 24, sm: 28 },
+                        flexShrink: 0,
+                      }}
+                    />
+                    <Link
+                      href="mailto:adityakumararyan101@gmail.com"
+                      sx={{
+                        color: MUTED,
+                        textDecoration: "none",
+                        fontSize: { xs: "0.85rem", sm: "0.95rem" },
+                        wordBreak: "break-word",
+                        "&:hover": { color: ACCENT },
+                      }}
+                    >
+                      adityakumararyan101@gmail.com
+                    </Link>
+                  </Box>
+                  <Box display="flex" alignItems="center" gap={2}>
+                    <PhoneIcon
+                      sx={{
+                        color: ACCENT,
+                        fontSize: { xs: 24, sm: 28 },
+                        flexShrink: 0,
+                      }}
+                    />
+                    <Link
+                      href="tel:+917782843264"
+                      sx={{
+                        color: MUTED,
+                        textDecoration: "none",
+                        fontSize: { xs: "0.85rem", sm: "0.95rem" },
+                        "&:hover": { color: ACCENT },
+                      }}
+                    >
+                      +91 77828 43264
+                    </Link>
+                  </Box>
+                  <Box display="flex" alignItems="center" gap={2}>
+                    <LinkedInIcon
+                      sx={{
+                        color: ACCENT,
+                        fontSize: { xs: 24, sm: 28 },
+                        flexShrink: 0,
+                      }}
+                    />
+                    <Link
+                      href="https://www.linkedin.com/in/aditya-kumar-aryan-a3654a138"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      sx={{
+                        color: MUTED,
+                        textDecoration: "none",
+                        fontSize: { xs: "0.85rem", sm: "0.95rem" },
+                        "&:hover": { color: ACCENT },
+                      }}
+                    >
+                      LinkedIn Profile
+                    </Link>
+                  </Box>
+                  <Box display="flex" alignItems="center" gap={2}>
+                    <GitHubIcon
+                      sx={{
+                        color: ACCENT,
+                        fontSize: { xs: 24, sm: 28 },
+                        flexShrink: 0,
+                      }}
+                    />
+                    <Link
+                      href="https://github.com/Adityaryan7"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      sx={{
+                        color: MUTED,
+                        textDecoration: "none",
+                        fontSize: { xs: "0.85rem", sm: "0.95rem" },
+                        "&:hover": { color: ACCENT },
+                      }}
+                    >
+                      GitHub Profile
+                    </Link>
+                  </Box>
+                </Stack>
+              </Grid>
+            </Grid>,
+            true,
           )}
         </Container>
 
-        {this.state.showScroll && <ScrollTopButton onClick={this.scrollToTop} />}
+        {this.state.showScroll && (
+          <ScrollTopButton onClick={this.scrollToTop}>
+            <ArrowUpwardIcon sx={{ fontSize: { xs: 18, sm: 20, md: 24 } }} />
+          </ScrollTopButton>
+        )}
 
         <Footer>
-          &copy; {new Date().getFullYear()} Aditya Kumar Aryan &mdash; Crafted with React & MUI
+          <Typography
+            variant="body2"
+            sx={{
+              color: MUTED_LIGHT,
+              fontSize: { xs: "0.75rem", sm: "0.85rem", md: "0.9rem" },
+            }}
+          >
+            &copy; {new Date().getFullYear()} Aditya Kumar Aryan — Frontend
+            Developer
+          </Typography>
         </Footer>
+
+        <Snackbar
+          open={showSnackbar}
+          autoHideDuration={6000}
+          onClose={this.handleSnackbarClose}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        >
+          <Alert
+            severity={formStatus.error ? "error" : "success"}
+            sx={{
+              background: formStatus.error
+                ? "rgba(211, 47, 47, 0.9)"
+                : "rgba(76, 175, 80, 0.9)",
+              color: "#fff",
+              fontSize: { xs: "0.8rem", sm: "0.9rem" },
+            }}
+            onClose={this.handleSnackbarClose}
+          >
+            {formStatus.message}
+          </Alert>
+        </Snackbar>
       </GradientBackground>
     );
   }

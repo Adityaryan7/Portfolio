@@ -218,7 +218,7 @@ const education = [
   {
     degree: "Bachelor of Technology – Computer Science and Engineering",
     institution: "National Institute of Technology (NIT), Mizoram",
-    year: "Aug 2018 – May 2022",
+    year: "Aug 2018 – Aug 2022",
   },
   {
     degree: "Intermediate",
@@ -314,7 +314,6 @@ const projects = [
     description:
       "NLP-based chatbot for COVID-19 information. Classifies Q&A pairs from web-scraped dataset using Python ML models. Evaluates performance using F1-score metrics.",
     stack: ["Python", "NLP", "Machine Learning", "scikit-learn"],
-  
   },
 ];
 
@@ -1117,20 +1116,6 @@ class Portfolio extends Component {
                     }}
                   >
                     Frontend Developer
-                  </Typography>
-
-                  <Typography
-                    variant="subtitle1"
-                    sx={{
-                      color: MUTED_LIGHT,
-                      fontWeight: 500,
-                      fontSize: { xs: "0.85rem", sm: "0.95rem", md: "1.05rem" },
-                      mb: 3,
-                      letterSpacing: 0.3,
-                    }}
-                  >
-                    Building scalable, high-performance web interfaces with
-                    modern JavaScript
                   </Typography>
 
                   <Typography

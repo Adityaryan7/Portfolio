@@ -904,7 +904,6 @@ class Portfolio extends Component {
   render() {
     const resumeURL = `${process.env.PUBLIC_URL}/Aadi_Resume.pdf`;
     const { formData, formStatus, showSnackbar } = this.state;
-
     const animatedSection = (id, title, content, isLast = false) => (
       <Box
         id={id}
@@ -912,20 +911,24 @@ class Portfolio extends Component {
           mb: isLast ? 0 : { xs: 2, sm: 3 },
           px: { xs: 1, sm: 1.5, md: 0 },
           transition: "margin-bottom 0.2s",
+          position: "relative",
+          width: "100%",
         }}
       >
-        <motion.div
-          variants={scrollFadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.15 }}
-          sx={{ width: "100%" }}
-        >
-          <GlassCard>
-            {title && <SectionTitle>{title}</SectionTitle>}
-            {content}
-          </GlassCard>
-        </motion.div>
+        <Box sx={{ width: "100%", position: "relative" }}>
+          <motion.div
+            variants={scrollFadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.15 }}
+            style={{ width: "100%" }}
+          >
+            <GlassCard>
+              {title && <SectionTitle>{title}</SectionTitle>}
+              {content}
+            </GlassCard>
+          </motion.div>
+        </Box>
       </Box>
     );
 
@@ -1086,6 +1089,26 @@ class Portfolio extends Component {
               viewport={{ once: true, amount: 0.15 }}
               sx={{ width: "100%" }}
             >
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                <Typography
+                  variant="subtitle2"
+                  sx={{
+                    color: ACCENT,
+                    fontWeight: 700,
+                    letterSpacing: 1,
+                    mb: 1,
+                    textTransform: "uppercase",
+                    fontSize: { xs: "0.7rem", sm: "0.8rem" },
+                  }}
+                >
+                  👋 Welcome to my portfolio
+                </Typography>
+              </motion.div>
+
               <Grid
                 container
                 spacing={{ xs: 2, sm: 3, md: 4 }}
@@ -1602,20 +1625,36 @@ class Portfolio extends Component {
                     onChange={this.handleFormChange}
                     disabled={formStatus.loading}
                     sx={{
+                      "& .MuiInputLabel-root": {
+                        color: MUTED_LIGHT,
+                      },
+
                       "& .MuiOutlinedInput-root": {
                         color: MUTED,
                         fontSize: { xs: "0.9rem", sm: "1rem" },
-                        "& fieldset": { borderColor: "rgba(255,255,255,0.1)" },
+                        backgroundColor: "transparent", // ✅ remove blue bg
+
+                        "& input": {
+                          backgroundColor: "transparent", // ✅ important
+                        },
+
+                        "& fieldset": {
+                          borderColor: "rgba(255,255,255,0.1)",
+                        },
+
                         "&:hover fieldset": {
                           borderColor: ACCENT,
                         },
+
                         "&.Mui-focused fieldset": {
                           borderColor: ACCENT,
                         },
                       },
-                      "& .MuiInputBase-input::placeholder": {
-                        color: MUTED_LIGHT,
-                        opacity: 1,
+
+                      "& input:-webkit-autofill": {
+                        WebkitBoxShadow: "0 0 0 1000px transparent inset",
+                        WebkitTextFillColor: MUTED,
+                        transition: "background-color 9999s ease-in-out 0s",
                       },
                     }}
                   />
@@ -1630,16 +1669,36 @@ class Portfolio extends Component {
                     onChange={this.handleFormChange}
                     disabled={formStatus.loading}
                     sx={{
+                      "& .MuiInputLabel-root": {
+                        color: MUTED_LIGHT,
+                      },
+
                       "& .MuiOutlinedInput-root": {
                         color: MUTED,
                         fontSize: { xs: "0.9rem", sm: "1rem" },
-                        "& fieldset": { borderColor: "rgba(255,255,255,0.1)" },
+                        backgroundColor: "transparent", // ✅ remove blue bg
+
+                        "& input": {
+                          backgroundColor: "transparent", // ✅ important
+                        },
+
+                        "& fieldset": {
+                          borderColor: "rgba(255,255,255,0.1)",
+                        },
+
                         "&:hover fieldset": {
                           borderColor: ACCENT,
                         },
+
                         "&.Mui-focused fieldset": {
                           borderColor: ACCENT,
                         },
+                      },
+
+                      "& input:-webkit-autofill": {
+                        WebkitBoxShadow: "0 0 0 1000px transparent inset",
+                        WebkitTextFillColor: MUTED,
+                        transition: "background-color 9999s ease-in-out 0s",
                       },
                     }}
                   />
@@ -1655,16 +1714,36 @@ class Portfolio extends Component {
                     onChange={this.handleFormChange}
                     disabled={formStatus.loading}
                     sx={{
+                      "& .MuiInputLabel-root": {
+                        color: MUTED_LIGHT,
+                      },
+
                       "& .MuiOutlinedInput-root": {
                         color: MUTED,
                         fontSize: { xs: "0.9rem", sm: "1rem" },
-                        "& fieldset": { borderColor: "rgba(255,255,255,0.1)" },
+                        backgroundColor: "transparent", // ✅ remove blue bg
+
+                        "& input": {
+                          backgroundColor: "transparent", // ✅ important
+                        },
+
+                        "& fieldset": {
+                          borderColor: "rgba(255,255,255,0.1)",
+                        },
+
                         "&:hover fieldset": {
                           borderColor: ACCENT,
                         },
+
                         "&.Mui-focused fieldset": {
                           borderColor: ACCENT,
                         },
+                      },
+
+                      "& input:-webkit-autofill": {
+                        WebkitBoxShadow: "0 0 0 1000px transparent inset",
+                        WebkitTextFillColor: MUTED,
+                        transition: "background-color 9999s ease-in-out 0s",
                       },
                     }}
                   />

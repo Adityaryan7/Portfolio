@@ -1089,26 +1089,6 @@ class Portfolio extends Component {
               viewport={{ once: true, amount: 0.15 }}
               sx={{ width: "100%" }}
             >
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-              >
-                <Typography
-                  variant="subtitle2"
-                  sx={{
-                    color: ACCENT,
-                    fontWeight: 700,
-                    letterSpacing: 1,
-                    mb: 1,
-                    textTransform: "uppercase",
-                    fontSize: { xs: "0.7rem", sm: "0.8rem" },
-                  }}
-                >
-                  👋 Welcome to my portfolio
-                </Typography>
-              </motion.div>
-
               <Grid
                 container
                 spacing={{ xs: 2, sm: 3, md: 4 }}

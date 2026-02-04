@@ -685,12 +685,13 @@ const skillsData = [
   {
     category: "Databases",
     icon: <StorageIcon />,
-    skills: ["MySQL", "PostgreSQL", "MongoDB", "REST APIs", "JSON"],
+    skills: ["SQL", "REST APIs"],
   },
   {
     category: "Other",
     icon: <ComputerIcon />,
     skills: [
+      "JSON",
       "API Integration",
       "State Management",
       "Performance Optimization",

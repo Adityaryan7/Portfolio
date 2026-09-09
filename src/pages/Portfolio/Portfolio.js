@@ -27,6 +27,7 @@ import DownloadIcon from "@mui/icons-material/Download";
 import WorkIcon from "@mui/icons-material/Work";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import StarIcon from "@mui/icons-material/Star";
+import FormatQuoteIcon from "@mui/icons-material/FormatQuote";
 
 import {
   Box,
@@ -51,14 +52,32 @@ import {
 } from "@mui/material";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
-import { styled } from "@mui/system";
+import { styled, keyframes } from "@mui/system";
 import { motion } from "framer-motion";
 
 const ACCENT = "#0b79d0";
 const ACCENT_DARK = "#095f9e";
+const ACCENT_LIGHT = "#4fb0f5";
 const ACCENT_RGBA = "rgba(11,121,208,0.12)";
 const MUTED = "rgba(230,238,248,0.75)";
 const MUTED_LIGHT = "rgba(230,238,248,0.55)";
+
+const gradientShift = keyframes`
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+`;
+
+const floatBlob = keyframes`
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -40px) scale(1.08); }
+  66% { transform: translate(-20px, 30px) scale(0.95); }
+`;
+
+const shine = keyframes`
+  0% { transform: translateX(-120%) skewX(-15deg); }
+  100% { transform: translateX(220%) skewX(-15deg); }
+`;
 
 const GradientBackground = styled(Box)(({ theme }) => ({
   minHeight: "100vh",
@@ -70,6 +89,7 @@ const GradientBackground = styled(Box)(({ theme }) => ({
   lineHeight: 1.6,
   overflowX: "hidden",
   paddingTop: 88,
+  position: "relative",
   [theme.breakpoints.down("sm")]: {
     paddingTop: 72,
     width: "100vw",
@@ -80,6 +100,39 @@ const GradientBackground = styled(Box)(({ theme }) => ({
   },
 }));
 
+const BackgroundGlow = styled(Box)({
+  position: "fixed",
+  inset: 0,
+  zIndex: 0,
+  pointerEvents: "none",
+  overflow: "hidden",
+});
+
+const Blob = styled(Box)(({ top, left, size, color, delay }) => ({
+  position: "absolute",
+  top,
+  left,
+  width: size,
+  height: size,
+  borderRadius: "50%",
+  background: `radial-gradient(circle, ${color} 0%, rgba(0,0,0,0) 70%)`,
+  filter: "blur(10px)",
+  opacity: 0.35,
+  animation: `${floatBlob} 16s ease-in-out infinite`,
+  animationDelay: delay || "0s",
+}));
+
+const ScrollProgressBar = styled(Box)({
+  position: "fixed",
+  top: 0,
+  left: 0,
+  height: 3,
+  background: `linear-gradient(90deg, ${ACCENT}, ${ACCENT_LIGHT})`,
+  zIndex: 1400,
+  transition: "width 0.1s linear",
+  boxShadow: `0 0 12px ${ACCENT}88`,
+});
+
 const GlassNav = styled(Box)(({ theme }) => ({
   position: "fixed",
   top: 0,
@@ -87,6 +140,7 @@ const GlassNav = styled(Box)(({ theme }) => ({
   width: "100%",
   zIndex: 1200,
   background: "linear-gradient(180deg, rgba(6,9,14,0.82), rgba(6,9,14,0.6))",
+  backdropFilter: "blur(10px)",
   borderBottom: "1px solid rgba(255,255,255,0.03)",
   display: "flex",
   alignItems: "center",
@@ -101,8 +155,8 @@ const GlassNav = styled(Box)(({ theme }) => ({
   },
 }));
 
-const NavLink = styled("button")(({ theme }) => ({
-  color: MUTED,
+const NavLink = styled("button")(({ theme, active }) => ({
+  color: active ? ACCENT : MUTED,
   margin: theme.spacing(0, 1.25),
   fontWeight: 600,
   textDecoration: "none",
@@ -113,11 +167,24 @@ const NavLink = styled("button")(({ theme }) => ({
   transition: "background 0.14s, color 0.14s, transform 0.12s",
   cursor: "pointer",
   border: "none",
-  background: "transparent",
+  background: active ? ACCENT_RGBA : "transparent",
+  position: "relative",
   "&:hover": {
     background: ACCENT_RGBA,
     color: ACCENT,
     transform: "translateY(-2px)",
+  },
+  "&::after": {
+    content: '""',
+    position: "absolute",
+    left: "50%",
+    bottom: -2,
+    transform: active ? "translateX(-50%) scaleX(1)" : "translateX(-50%) scaleX(0)",
+    width: "60%",
+    height: 2,
+    borderRadius: 2,
+    background: ACCENT,
+    transition: "transform 0.2s ease",
   },
   [theme.breakpoints.down("md")]: {
     margin: theme.spacing(0, 0.8),
@@ -164,6 +231,8 @@ const HeroSection = styled(Box)(({ theme }) => ({
   justifyContent: "center",
   paddingTop: theme.spacing(8),
   paddingBottom: theme.spacing(6),
+  position: "relative",
+  zIndex: 1,
   [theme.breakpoints.up("md")]: {
     paddingTop: theme.spacing(12),
     paddingBottom: theme.spacing(10),
@@ -173,6 +242,15 @@ const HeroSection = styled(Box)(({ theme }) => ({
     paddingBottom: theme.spacing(4),
   },
 }));
+
+const GradientName = styled(Typography)({
+  background: `linear-gradient(90deg, #ffffff, ${ACCENT_LIGHT}, ${ACCENT}, #ffffff)`,
+  backgroundSize: "300% auto",
+  WebkitBackgroundClip: "text",
+  WebkitTextFillColor: "transparent",
+  backgroundClip: "text",
+  animation: `${gradientShift} 6s ease-in-out infinite`,
+});
 
 const GlassCard = styled(Paper)(({ theme }) => ({
   background: "linear-gradient(180deg, rgba(8,10,14,0.78), rgba(6,8,12,0.78))",
@@ -184,6 +262,12 @@ const GlassCard = styled(Paper)(({ theme }) => ({
   minHeight: "120px",
   border: `1px solid rgba(255,255,255,0.03)`,
   padding: theme.spacing(4),
+  position: "relative",
+  zIndex: 1,
+  transition: "border-color 0.25s ease, box-shadow 0.25s ease",
+  "&:hover": {
+    borderColor: `${ACCENT}33`,
+  },
   [theme.breakpoints.down("md")]: {
     padding: theme.spacing(3),
   },
@@ -213,6 +297,25 @@ const projectCardStyles = {
     borderColor: ACCENT_RGBA,
   },
 };
+
+const ShineButton = styled(Button)({
+  position: "relative",
+  overflow: "hidden",
+  "&::before": {
+    content: '""',
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "40%",
+    height: "100%",
+    background:
+      "linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.35) 50%, rgba(255,255,255,0) 100%)",
+    transform: "translateX(-120%) skewX(-15deg)",
+  },
+  "&:hover::before": {
+    animation: `${shine} 0.9s ease`,
+  },
+});
 
 const education = [
   {
@@ -378,6 +481,8 @@ const Footer = styled(Box)(({ theme }) => ({
   paddingRight: theme.spacing(2),
   textAlign: "center",
   color: "rgba(255,255,255,0.65)",
+  position: "relative",
+  zIndex: 1,
   [theme.breakpoints.down("sm")]: {
     marginTop: theme.spacing(4),
     paddingTop: theme.spacing(2),
@@ -533,6 +638,11 @@ const ProjectCard = ({ project }) => (
               fontSize: { xs: "0.65rem", sm: "0.75rem" },
               height: "auto",
               padding: "4px 6px",
+              transition: "transform 0.15s, background 0.15s",
+              "&:hover": {
+                transform: "translateY(-2px)",
+                background: `${ACCENT}22`,
+              },
             }}
           />
         ))}
@@ -541,7 +651,7 @@ const ProjectCard = ({ project }) => (
     {(project.demo || project.repo) && (
       <CardActions sx={{ pt: 0, pb: 2, px: 2, gap: 1, flexWrap: "wrap" }}>
         {project.demo && project.demo !== "#" && (
-          <Button
+          <ShineButton
             size="small"
             variant="contained"
             href={project.demo}
@@ -555,7 +665,7 @@ const ProjectCard = ({ project }) => (
             }}
           >
             Live Demo
-          </Button>
+          </ShineButton>
         )}
         {project.repo && project.repo !== "#" && (
           <Button
@@ -586,13 +696,24 @@ const ProjectCard = ({ project }) => (
 // TestimonialCard Component
 const TestimonialCard = ({ quote, author, role }) => (
   <Paper
+    component={motion.div}
+    whileHover={{ y: -6 }}
     sx={{
       p: { xs: 2, sm: 3 },
       background: "rgba(255,255,255,0.02)",
       borderRadius: 2,
       border: `1px solid ${ACCENT}22`,
+      height: "100%",
+      display: "flex",
+      flexDirection: "column",
+      transition: "box-shadow 0.2s",
+      "&:hover": {
+        boxShadow: `0 14px 34px ${ACCENT}1f`,
+        borderColor: `${ACCENT}55`,
+      },
     }}
   >
+    <FormatQuoteIcon sx={{ color: `${ACCENT}66`, fontSize: 28, mb: 0.5 }} />
     <Box display="flex" gap={0.5} mb={1}>
       {[...Array(5)].map((_, i) => (
         <StarIcon
@@ -605,9 +726,10 @@ const TestimonialCard = ({ quote, author, role }) => (
       variant="body2"
       sx={{
         color: MUTED_LIGHT,
-        mb: 1,
+        mb: 1.5,
         fontStyle: "italic",
         fontSize: { xs: "0.85rem", sm: "0.9rem" },
+        flex: 1,
       }}
     >{`"${quote}"`}</Typography>
     <Typography
@@ -711,6 +833,15 @@ const skillsData = [
   },
 ];
 
+const NAV_SECTIONS = [
+  "about",
+  "experience",
+  "skills",
+  "projects",
+  "education",
+  "contact",
+];
+
 class Portfolio extends Component {
   constructor(props) {
     super(props);
@@ -718,6 +849,8 @@ class Portfolio extends Component {
       showScroll: false,
       typewriterText: "",
       mobileNavOpen: false,
+      scrollProgress: 0,
+      activeSection: "about",
       formData: {
         name: "",
         email: "",
@@ -753,7 +886,20 @@ class Portfolio extends Component {
 
   handleScroll = () => {
     const scrollTop = window.scrollY;
-    this.setState({ showScroll: scrollTop > 200 });
+    const docHeight =
+      document.documentElement.scrollHeight - window.innerHeight;
+    const scrollProgress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+
+    let activeSection = this.state.activeSection;
+    for (let i = NAV_SECTIONS.length - 1; i >= 0; i -= 1) {
+      const el = document.getElementById(NAV_SECTIONS[i]);
+      if (el && el.getBoundingClientRect().top <= 160) {
+        activeSection = NAV_SECTIONS[i];
+        break;
+      }
+    }
+
+    this.setState({ showScroll: scrollTop > 200, scrollProgress, activeSection });
   };
 
   scrollToSection = (id) => {
@@ -914,7 +1060,8 @@ class Portfolio extends Component {
 
   render() {
     const resumeURL = `${process.env.PUBLIC_URL}/AKAryan_Resume_Frontend_Dev.pdf`;
-    const { formData, formStatus, showSnackbar } = this.state;
+    const { formData, formStatus, showSnackbar, activeSection, scrollProgress } =
+      this.state;
     const animatedSection = (id, title, content, isLast = false) => (
       <Box
         id={id}
@@ -945,6 +1092,26 @@ class Portfolio extends Component {
 
     return (
       <GradientBackground>
+        <ScrollProgressBar sx={{ width: `${scrollProgress}%` }} />
+
+        <BackgroundGlow>
+          <Blob top="-80px" left="-60px" size="320px" color={`${ACCENT}55`} />
+          <Blob
+            top="40vh"
+            left="80vw"
+            size="380px"
+            color={`${ACCENT_LIGHT}33`}
+            delay="4s"
+          />
+          <Blob
+            top="85vh"
+            left="10vw"
+            size="300px"
+            color={`${ACCENT}33`}
+            delay="8s"
+          />
+        </BackgroundGlow>
+
         <GlassNav>
           <Box
             display="flex"
@@ -984,42 +1151,16 @@ class Portfolio extends Component {
             </Typography>
           </Box>
           <NavLinksBox>
-            <NavLink
-              aria-label="About section"
-              onClick={() => this.scrollToSection("about")}
-            >
-              About
-            </NavLink>
-            <NavLink
-              aria-label="Experience section"
-              onClick={() => this.scrollToSection("experience")}
-            >
-              Experience
-            </NavLink>
-            <NavLink
-              aria-label="Skills section"
-              onClick={() => this.scrollToSection("skills")}
-            >
-              Skills
-            </NavLink>
-            <NavLink
-              aria-label="Projects section"
-              onClick={() => this.scrollToSection("projects")}
-            >
-              Projects
-            </NavLink>
-            <NavLink
-              aria-label="Education section"
-              onClick={() => this.scrollToSection("education")}
-            >
-              Education
-            </NavLink>
-            <NavLink
-              aria-label="Contact section"
-              onClick={() => this.scrollToSection("contact")}
-            >
-              Contact
-            </NavLink>
+            {NAV_SECTIONS.map((id) => (
+              <NavLink
+                key={id}
+                aria-label={`${id} section`}
+                active={activeSection === id ? 1 : 0}
+                onClick={() => this.scrollToSection(id)}
+              >
+                {id.charAt(0).toUpperCase() + id.slice(1)}
+              </NavLink>
+            ))}
           </NavLinksBox>
           <MobileMenuButton
             edge="end"
@@ -1067,24 +1208,15 @@ class Portfolio extends Component {
                   <CloseIcon />
                 </IconButton>
               </Box>
-              <NavLink onClick={() => this.handleMobileNavClick("about")}>
-                About
-              </NavLink>
-              <NavLink onClick={() => this.handleMobileNavClick("experience")}>
-                Experience
-              </NavLink>
-              <NavLink onClick={() => this.handleMobileNavClick("skills")}>
-                Skills
-              </NavLink>
-              <NavLink onClick={() => this.handleMobileNavClick("projects")}>
-                Projects
-              </NavLink>
-              <NavLink onClick={() => this.handleMobileNavClick("education")}>
-                Education
-              </NavLink>
-              <NavLink onClick={() => this.handleMobileNavClick("contact")}>
-                Contact
-              </NavLink>
+              {NAV_SECTIONS.map((id) => (
+                <NavLink
+                  key={id}
+                  active={activeSection === id ? 1 : 0}
+                  onClick={() => this.handleMobileNavClick(id)}
+                >
+                  {id.charAt(0).toUpperCase() + id.slice(1)}
+                </NavLink>
+              ))}
             </MobileDrawerNav>
           </Drawer>
         </GlassNav>
@@ -1106,11 +1238,10 @@ class Portfolio extends Component {
                 alignItems="center"
               >
                 <Grid item xs={12} md={7}>
-                  <Typography
+                  <GradientName
                     variant="h2"
                     fontWeight={800}
                     sx={{
-                      color: "#fff",
                       fontSize: { xs: "1.6rem", sm: "2rem", md: "2.8rem" },
                       letterSpacing: 0.6,
                       mb: 1,
@@ -1118,7 +1249,7 @@ class Portfolio extends Component {
                     }}
                   >
                     Aditya Kumar Aryan
-                  </Typography>
+                  </GradientName>
 
                   <Typography
                     variant="h4"
@@ -1128,9 +1259,25 @@ class Portfolio extends Component {
                       fontSize: { xs: "1rem", sm: "1.3rem", md: "1.6rem" },
                       mb: 1,
                       letterSpacing: 0.5,
+                      minHeight: { xs: "1.4em", md: "1.2em" },
                     }}
                   >
-                    Frontend Developer
+                    {this.state.typewriterText}
+                    <Box
+                      component="span"
+                      sx={{
+                        display: "inline-block",
+                        width: "2px",
+                        height: "1em",
+                        background: ACCENT,
+                        ml: 0.5,
+                        verticalAlign: "middle",
+                        animation: "blink 1s step-end infinite",
+                        "@keyframes blink": {
+                          "50%": { opacity: 0 },
+                        },
+                      }}
+                    />
                   </Typography>
 
                   <Typography
@@ -1157,7 +1304,7 @@ class Portfolio extends Component {
                     flexWrap="wrap"
                     mb={3}
                   >
-                    <Button
+                    <ShineButton
                       variant="contained"
                       href={resumeURL}
                       download="AKAryan_Resume_Frontend_Dev.pdf"
@@ -1181,7 +1328,7 @@ class Portfolio extends Component {
                       }}
                     >
                       Download CV
-                    </Button>
+                    </ShineButton>
                     <Button
                       variant="outlined"
                       onClick={() => this.scrollToSection("projects")}
@@ -1249,6 +1396,11 @@ class Portfolio extends Component {
                           },
                           height: "auto",
                           padding: "3px 6px",
+                          transition: "transform 0.15s, background 0.15s",
+                          "&:hover": {
+                            transform: "translateY(-2px)",
+                            background: `${ACCENT}1f`,
+                          },
                         }}
                       />
                     ))}
@@ -1275,6 +1427,11 @@ class Portfolio extends Component {
                         border: `1px solid ${ACCENT}33`,
                         width: { xs: 220, sm: 240, md: 280 },
                         textAlign: "center",
+                        transition: "transform 0.25s, box-shadow 0.25s",
+                        "&:hover": {
+                          transform: "translateY(-4px)",
+                          boxShadow: `0 16px 40px ${ACCENT}2e`,
+                        },
                       }}
                     >
                       <Avatar
@@ -1368,6 +1525,8 @@ class Portfolio extends Component {
             pt: { xs: 2, sm: 3, md: 4 },
             pb: 6,
             px: { xs: 1, sm: 2, md: 3 },
+            position: "relative",
+            zIndex: 1,
           }}
         >
           {/* About Section */}
@@ -1445,6 +1604,11 @@ class Portfolio extends Component {
                       borderRadius: 2,
                       border: `1px solid ${ACCENT}22`,
                       height: "100%",
+                      transition: "border-color 0.2s, box-shadow 0.2s",
+                      "&:hover": {
+                        borderColor: `${ACCENT}55`,
+                        boxShadow: `0 10px 26px ${ACCENT}14`,
+                      },
                     }}
                   >
                     <Box display="flex" alignItems="center" gap={1} mb={2}>
@@ -1482,6 +1646,11 @@ class Portfolio extends Component {
                             fontSize: { xs: "0.65rem", sm: "0.75rem" },
                             height: "auto",
                             padding: "4px 6px",
+                            transition: "transform 0.15s, background 0.15s",
+                            "&:hover": {
+                              transform: "translateY(-2px)",
+                              background: `${ACCENT}22`,
+                            },
                           }}
                         />
                       ))}
@@ -1503,6 +1672,22 @@ class Portfolio extends Component {
               {projects.map((project) => (
                 <Grid item xs={12} sm={6} key={project.title}>
                   <ProjectCard project={project} />
+                </Grid>
+              ))}
+            </Grid>,
+          )}
+
+          {/* Testimonials Section */}
+          {animatedSection(
+            "testimonials",
+            <Box display="flex" alignItems="center" gap={1}>
+              <StarIcon sx={{ color: ACCENT, fontSize: { xs: 20, sm: 24 } }} />
+              <span>What People Say</span>
+            </Box>,
+            <Grid container spacing={{ xs: 2, sm: 2.5, md: 3 }}>
+              {testimonials.map((t, i) => (
+                <Grid item xs={12} sm={6} key={i}>
+                  <TestimonialCard {...t} />
                 </Grid>
               ))}
             </Grid>,
@@ -1630,10 +1815,10 @@ class Portfolio extends Component {
                       "& .MuiOutlinedInput-root": {
                         color: MUTED,
                         fontSize: { xs: "0.9rem", sm: "1rem" },
-                        backgroundColor: "transparent", // ✅ remove blue bg
+                        backgroundColor: "transparent",
 
                         "& input": {
-                          backgroundColor: "transparent", // ✅ important
+                          backgroundColor: "transparent",
                         },
 
                         "& fieldset": {
@@ -1674,10 +1859,10 @@ class Portfolio extends Component {
                       "& .MuiOutlinedInput-root": {
                         color: MUTED,
                         fontSize: { xs: "0.9rem", sm: "1rem" },
-                        backgroundColor: "transparent", // ✅ remove blue bg
+                        backgroundColor: "transparent",
 
                         "& input": {
-                          backgroundColor: "transparent", // ✅ important
+                          backgroundColor: "transparent",
                         },
 
                         "& fieldset": {
@@ -1719,10 +1904,10 @@ class Portfolio extends Component {
                       "& .MuiOutlinedInput-root": {
                         color: MUTED,
                         fontSize: { xs: "0.9rem", sm: "1rem" },
-                        backgroundColor: "transparent", // ✅ remove blue bg
+                        backgroundColor: "transparent",
 
                         "& input": {
-                          backgroundColor: "transparent", // ✅ important
+                          backgroundColor: "transparent",
                         },
 
                         "& fieldset": {
@@ -1745,7 +1930,7 @@ class Portfolio extends Component {
                       },
                     }}
                   />
-                  <Button
+                  <ShineButton
                     variant="contained"
                     type="submit"
                     disabled={formStatus.loading}
@@ -1773,7 +1958,7 @@ class Portfolio extends Component {
                     }}
                   >
                     {formStatus.loading ? "Sending..." : "Send Message"}
-                  </Button>
+                  </ShineButton>
                 </Stack>
               </Grid>
               <Grid item xs={12} md={6}>

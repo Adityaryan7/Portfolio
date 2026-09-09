@@ -879,28 +879,36 @@ class Portfolio extends Component {
     this.startTypewriter();
   }
 
-  componentWillUnmount() {
-    window.removeEventListener("scroll", this.handleScroll);
-    clearInterval(this.typewriterInterval);
+ componentWillUnmount() {
+  window.removeEventListener("scroll", this.handleScroll);
+  clearTimeout(this.typewriterInterval);
+}
+
+
+ handleScroll = () => {
+  const scrollTop = window.scrollY;
+  const docHeight =
+    document.documentElement.scrollHeight - window.innerHeight;
+  const scrollProgress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+
+  let activeSection = null;
+
+  for (let i = NAV_SECTIONS.length - 1; i >= 0; i -= 1) {
+    const el = document.getElementById(NAV_SECTIONS[i]);
+
+    if (el && el.getBoundingClientRect().top <= 160) {
+      activeSection = NAV_SECTIONS[i];
+      break;
+    }
   }
 
-  handleScroll = () => {
-    const scrollTop = window.scrollY;
-    const docHeight =
-      document.documentElement.scrollHeight - window.innerHeight;
-    const scrollProgress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  this.setState((prevState) => ({
+    showScroll: scrollTop > 200,
+    scrollProgress,
+    activeSection: activeSection || prevState.activeSection,
+  }));
+};
 
-    let activeSection = this.state.activeSection;
-    for (let i = NAV_SECTIONS.length - 1; i >= 0; i -= 1) {
-      const el = document.getElementById(NAV_SECTIONS[i]);
-      if (el && el.getBoundingClientRect().top <= 160) {
-        activeSection = NAV_SECTIONS[i];
-        break;
-      }
-    }
-
-    this.setState({ showScroll: scrollTop > 200, scrollProgress, activeSection });
-  };
 
   scrollToSection = (id) => {
     const el = document.getElementById(id);

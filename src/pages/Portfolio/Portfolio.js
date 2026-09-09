@@ -217,103 +217,110 @@ const projectCardStyles = {
 const education = [
   {
     degree: "Bachelor of Technology – Computer Science and Engineering",
-    institution: "National Institute of Technology (NIT), Mizoram",
-    year: "Aug 2018 – Aug 2022",
-  },
-  {
-    degree: "Intermediate",
-    institution: "Sri Chaitanya Vidhya Niketan, Vishakhapatnam",
-    year: "2017",
-  },
-  {
-    degree: "Matriculation",
-    institution: "B.D. Public School, Patna",
-    year: "2015",
+    institution: "National Institute of Technology (NIT), Mizoram, India",
+    year: "Aug 2018 – May 2022",
   },
 ];
 
 const experience = [
   {
-    company: "Star Intellisoft Services Private Limited",
-    location: "",
-    title: "Software Engineer",
-    period: "March 2023 – Current",
+    company: "Star Intellisoft Services Pvt. Ltd.",
+    location: "Hyderabad, India",
+    title: "Associate Developer",
+    period: "March 2023 – Present",
     details: [
-      <span key="title">
-        <b>
-          Web and Mobile App Development | Al Habtoor Motors, Oman Trading
-          Establishment and Towell Auto Center
-        </b>
+      "Collaborated with cross-functional Agile teams and stakeholders to define project requirements, scope, and timelines; managed sprints in Jira.",
+      "Led code reviews, provided technical guidance on best practices, and troubleshot complex issues during production support across web and mobile releases.",
+      "Used AI-assisted development tools including GitHub Copilot and Cursor to accelerate development and delivery.",
+      <span key="web">
+        <b>React.js Web Applications:</b> Built and maintained enterprise portals including B2B parts ordering, vendor RFQ/supplier portals, digital showroom, vehicle leasing/booking, and service bay/lead-generation tools for multinational automotive clients across the Middle East.
       </span>,
-      "Developed responsive web apps with React.js and JavaScript, and cross-platform mobile apps with React Native for Android.",
-      "Designed UIs using HTML, CSS, Flexbox, and Grid, ensuring accessibility and modern design standards.",
-      "Integrated REST APIs with Axios and managed state with Redux for efficient data flow.",
-      "Optimized performance through lazy loading, code splitting, and tools like Chrome DevTools.",
-      "Implemented CI/CD with GitHub Actions, deploying apps via Azure and Codemagic.",
-      "Ensured quality with unit/integration tests using Jest and React Testing Library.",
-      "Collaborated in agile teams using Jira, delivering features on time.",
-      <span key="tech">
-        <b>Tech Stack:</b> React Native, React.js, JavaScript, HTML, CSS
+      "Implemented product search/filtering, cart and checkout, bulk Excel uploads, quotation workflows, vehicle configuration, and leasing bookings using Redux, Redux Thunk/Persist, and Axios.",
+      "Secured applications with Microsoft Entra ID/MSAL authentication, added multilingual localization with i18next, and supported CI/CD through Bitbucket Pipelines.",
+      "Improved responsiveness and Time-to-Interactive through code splitting, lazy loading, and React memoization on high-traffic screens.",
+      "Ensured reliability with Jest unit/integration testing and API validation using Postman.",
+      <span key="autoexpress">
+        <b>AutoExpress – React Native:</b> Developed a cross-platform dealership operations app covering vehicle inspections, image/video capture, yard management, vehicle transfers, fuel/tyre workflows, service handover, rental inventory, appointments, and electronic quotations.
       </span>,
+      "Implemented secure authentication, Redux state management, offline/local persistence, Arabic/English localization, and Firebase Crashlytics monitoring.",
+      <span key="customer">
+        <b>Automotive Customer Experience Application:</b> Developed features for vehicle/service-contract management, appointment scheduling, test-drive booking, roadside assistance, quotation approval, invoicing/down-payment workflows, online vehicle purchasing, and dealer-location search.
+      </span>,
+      "Integrated Firebase Cloud Messaging, Firebase Crashlytics, React Native Maps, and SafexPay/FAB payment gateway with Arabic, English, and Spanish localization.",
     ],
   },
   {
-    company: "Tool Room and Training Center, Guwahati",
-    location: "",
-    title: "Software Development - Intern",
-    period: "Dec 2020 – Apr 2021",
+    company: "Tool Room and Training Center",
+    location: "Guwahati, India",
+    title: "Software Development Intern",
+    period: "Dec 2020 – April 2021",
     details: [
-      <span key="java">
-        <b>Java Developer Trainee:</b> Improved my skills as a Java Developer by
-        working on different Java APIs in projects. This job gave me useful
-        experience and helped me better understand how to develop Java
-        applications and solve problems.
-        <br />
-        <b>Tech Stack:</b> Core Java, SQL
-      </span>,
-      <span key="web">
-        <b>Graphics and Web Designer Trainee:</b> Improved my proficiency in
-        HTML and CSS, contributing to web design projects. This role enhanced my
-        ability to design user-friendly websites and implement visually
-        appealing, responsive layouts.
-        <br />
-        <b>Tech Stack:</b> HTML, CSS, JavaScript
-      </span>,
+      "Built core business logic and relational data layers using Core Java and SQL.",
+      "Designed responsive, ADA-accessible UI components using HTML5, CSS3, and JavaScript for internal administrative tools.",
     ],
   },
 ];
 
 const projects = [
   {
+    title: "E-Commerce Dashboard",
+    year: "2024",
+    description:
+      "Full-featured e-commerce management platform with advanced product filtering, search, and persistent cart management. Integrated RESTful APIs with secure authentication and real-time updates using Redux.",
+    stack: [
+      "React.js",
+      "Redux",
+      "REST APIs",
+      "Material UI",
+      "JavaScript",
+      "Authentication",
+    ],
+    demo: "https://product-dashboard-ecom.netlify.app/",
+    repo: "https://github.com/Adityaryan7/product",
+  },
+  {
     title: "Personal Portfolio",
     year: "2025",
     description:
-      "Responsive portfolio website built with React.js and Material UI. Features smooth animations, dark mode toggle, lazy loading, and optimized performance. Implemented mobile-first responsive design with SEO basics.",
+      "React.js and Material UI portfolio site focused on responsive design, performance, accessibility, smooth animations, and a mobile-first experience. The resume reports a 95+ Google Lighthouse score.",
     stack: [
       "React.js",
       "Material UI",
       "JavaScript",
-      "CSS3",
       "Responsive Design",
+      "Accessibility",
+      "Performance",
     ],
     demo: "https://Adityaryan7.github.io/Portfolio",
     repo: "https://github.com/Adityaryan7/Portfolio",
   },
   {
-    title: "E-Commerce Dashboard",
-    year: "2024",
+    title: "AutoExpress – React Native",
+    year: "Professional Project",
     description:
-      "Full-featured e-commerce dashboard with product filtering, search, and cart management. Integrated REST APIs with error handling, Redux state management, and Material UI components. Features real-time product updates and user authentication.",
-    stack: ["React.js", "Redux", "REST API", "Material UI", "JavaScript"],
-    demo: "https://product-dashboard-ecom.netlify.app/",
-    repo: "https://github.com/Adityaryan7/product",
+      "Cross-platform automotive dealership operations application covering inspections, image/video capture, yard management, internal transfers, fuel/tyre workflows, service handover, rental inventory, appointments, and electronic quotations.",
+    stack: [
+      "React Native",
+      "Redux",
+      "Firebase",
+      "Localization",
+      "Offline Persistence",
+      "Crashlytics",
+    ],
   },
   {
-    title: "COVID-19 Query Classification Chatbot",
-    year: "Jan 2022 – Jun 2022",
+    title: "Automotive Customer Experience App",
+    year: "Professional Project",
     description:
-      "NLP-based chatbot for COVID-19 information. Classifies Q&A pairs from web-scraped dataset using Python ML models. Evaluates performance using F1-score metrics.",
-    stack: ["Python", "NLP", "Machine Learning", "scikit-learn"],
+      "Cross-platform customer experience application for vehicle and service-contract management, appointments, test drives, roadside assistance, quotation approval, online vehicle purchasing, and dealer-location search.",
+    stack: [
+      "React Native",
+      "Redux",
+      "Firebase",
+      "Google Maps",
+      "Payment Gateway",
+      "i18n",
+    ],
   },
 ];
 
@@ -642,61 +649,64 @@ const skillsData = [
   {
     category: "Languages",
     icon: <LanguageIcon />,
-    skills: ["JavaScript", "Python", "SQL", "Core Java"],
+    skills: ["JavaScript (ES6+)", "SQL", "Core Java", "HTML5", "CSS3"],
   },
   {
-    category: "Frontend",
+    category: "Frameworks & Libraries",
     icon: <BrushIcon />,
     skills: [
       "React.js",
       "React Native",
       "Redux",
-      "Context API",
-      "Hooks",
-      "HTML5",
-      "CSS3",
-      "SCSS",
+      "Redux Thunk",
+      "Redux Persist",
+      "Axios",
+      "REST APIs",
+      "GraphQL APIs",
       "Material UI",
-      "Bootstrap",
       "Tailwind CSS",
-      "Responsive Design",
+      "Bootstrap",
     ],
   },
   {
-    category: "Developer Tools",
+    category: "Cloud, Auth & Mobile",
+    icon: <CloudIcon />,
+    skills: [
+      "Microsoft Entra ID",
+      "MSAL",
+      "Firebase Cloud Messaging",
+      "Firebase Crashlytics",
+      "Google Maps SDK",
+    ],
+  },
+  {
+    category: "Testing & Engineering",
     icon: <BuildIcon />,
     skills: [
-      "VS Code",
+      "Jest",
+      "Unit Testing",
+      "Integration Testing",
+      "Postman",
+      "CI/CD",
+      "Agile/Scrum",
+      "i18n / Localization",
+      "ADA Accessibility",
+      "Cross-browser Compatibility",
+    ],
+  },
+  {
+    category: "Development & Collaboration",
+    icon: <ComputerIcon />,
+    skills: [
       "Git",
       "GitHub",
       "Bitbucket",
-      "Postman",
-      "MySQL Workbench",
-      "PostgreSQL Workbench",
-      "Chrome DevTools",
-      "Jest",
-    ],
-  },
-  {
-    category: "Cloud & Deployment",
-    icon: <CloudIcon />,
-    skills: ["Microsoft Azure", "Codemagic", "GitHub Actions", "CI/CD"],
-  },
-  {
-    category: "Databases",
-    icon: <StorageIcon />,
-    skills: ["SQL", "REST APIs"],
-  },
-  {
-    category: "Other",
-    icon: <ComputerIcon />,
-    skills: [
-      "JSON",
-      "API Integration",
-      "State Management",
-      "Performance Optimization",
-      "UI/UX Implementation",
-      "Agile Methodology",
+      "Bitbucket Pipelines",
+      "GitHub Actions",
+      "Codemagic",
+      "Jira",
+      "GitHub Copilot",
+      "Cursor",
     ],
   },
 ];
@@ -723,9 +733,10 @@ class Portfolio extends Component {
     };
 
     this.typewriterPhrases = [
-      "Frontend Developer",
-      "React.js & React Native Specialist",
-      "Building Scalable Web & Mobile Apps",
+      "Associate Developer",
+      "React.js & React Native Developer",
+      "Building Enterprise Web & Mobile Apps",
+      "Automotive Technology Solutions",
     ];
     this.typewriterInterval = null;
   }
@@ -902,7 +913,7 @@ class Portfolio extends Component {
   };
 
   render() {
-    const resumeURL = `${process.env.PUBLIC_URL}/Aadi_Resume.pdf`;
+    const resumeURL = `${process.env.PUBLIC_URL}/AKAryan_Resume_Frontend_Dev.pdf`;
     const { formData, formStatus, showSnackbar } = this.state;
     const animatedSection = (id, title, content, isLast = false) => (
       <Box
@@ -1132,12 +1143,12 @@ class Portfolio extends Component {
                       lineHeight: 1.8,
                     }}
                   >
-                    3+ years of hands-on experience building responsive,
-                    accessible, and performance-optimized web applications. I
-                    specialize in React.js, React Native, JavaScript (ES6+), and
-                    modern UI development. I focus on clean component
-                    architecture, code reusability, and delivering
-                    production-ready solutions.
+                    Associate Developer with 3+ years of experience building and maintaining
+                    enterprise web and cross-platform mobile applications. I specialize
+                    in React.js, React Native, JavaScript (ES6+), Redux, API integration,
+                    authentication, localization, and performance optimization. I work
+                    across Agile teams to deliver production-ready solutions for
+                    automotive clients in the Middle East.
                   </Typography>
 
                   <Box
@@ -1149,7 +1160,7 @@ class Portfolio extends Component {
                     <Button
                       variant="contained"
                       href={resumeURL}
-                      download="Aadi_Resume.pdf"
+                      download="AKAryan_Resume_Frontend_Dev.pdf"
                       startIcon={<DownloadIcon />}
                       sx={{
                         background: `linear-gradient(90deg, ${ACCENT} 50%, ${ACCENT_DARK} 100%)`,
@@ -1215,10 +1226,12 @@ class Portfolio extends Component {
                       Specialized in:
                     </Typography>
                     {[
-                      "JavaScript ES6+",
                       "React.js",
+                      "React Native",
+                      "Redux",
                       "REST APIs",
-                      "Responsive Design",
+                      "Microsoft Entra ID",
+                      "Firebase",
                     ].map((t) => (
                       <Chip
                         key={t}
@@ -1299,7 +1312,7 @@ class Portfolio extends Component {
                           },
                         }}
                       >
-                        React • Javascript • REST APIs • Responsive Design
+                        React.js • React Native • Redux • APIs • Firebase
                       </Typography>
                       <Box
                         display="flex"
@@ -1374,17 +1387,22 @@ class Portfolio extends Component {
                 color: MUTED,
               }}
             >
-              I am a frontend developer with 3+ years of hands-on experience
-              building real-world web applications. I specialize in{" "}
-              <strong>JavaScript and React</strong>, focusing on clean
-              architecture, reusable components, and performance-optimized UI. I
-              have worked closely with designers, backend teams, and clients to
-              deliver production-ready solutions that scale.
+              I am an <strong>Associate Developer</strong> with 3+ years of experience
+              building enterprise web and cross-platform mobile applications. I
+              specialize in <strong>React.js, React Native, JavaScript, Redux,
+              API integration, authentication, localization, and performance
+              optimization</strong>.
               <br />
               <br />
-              <strong>My approach:</strong> Write clean, maintainable code •
-              Build accessible UIs • Optimize performance • Collaborate
-              effectively with teams.
+              My professional experience includes B2B automotive portals, supplier
+              RFQ workflows, digital showrooms, leasing and booking platforms, and
+              React Native dealership/customer applications for multinational
+              automotive clients across the Middle East.
+              <br />
+              <br />
+              <strong>My approach:</strong> Clean and maintainable code •
+              Reusable components • Accessible interfaces • Performance optimization •
+              Agile collaboration • Production reliability.
             </Typography>,
           )}
 
@@ -1553,9 +1571,9 @@ class Portfolio extends Component {
                     fontSize: { xs: "0.9rem", sm: "0.95rem" },
                   }}
                 >
-                  I am open to opportunities in frontend development, UI-focused
-                  features, and collaborative projects. Let&apos;s build
-                  something great together.
+                  I am open to opportunities in React.js, React Native, frontend engineering,
+                  and enterprise application development. Let&apos;s build
+                  reliable, scalable, and user-focused products together.
                 </Typography>
 
                 {formStatus.error && (
@@ -1866,8 +1884,7 @@ class Portfolio extends Component {
               fontSize: { xs: "0.75rem", sm: "0.85rem", md: "0.9rem" },
             }}
           >
-            &copy; {new Date().getFullYear()} Aditya Kumar Aryan — Frontend
-            Developer
+            &copy; {new Date().getFullYear()} Aditya Kumar Aryan — Associate Developer
           </Typography>
         </Footer>
 
